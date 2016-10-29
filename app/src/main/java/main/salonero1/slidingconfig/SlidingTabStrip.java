@@ -1,4 +1,4 @@
-package slidingconfig;
+package main.salonero1.slidingconfig;
 
 import android.content.Context;
 import android.graphics.Canvas;

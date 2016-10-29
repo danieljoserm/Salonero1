@@ -1,12 +1,13 @@
-package adapters;
+package main.salonero1.slidingconfig;
 
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import samples.exoguru.materialtabs.Tab1;
-import samples.exoguru.materialtabs.Tab2;
+import main.salonero1.Tabs.Tab1;
+import main.salonero1.Tabs.Tab2;
+
 
 /**
  * Created by Edwin on 15/02/2015.

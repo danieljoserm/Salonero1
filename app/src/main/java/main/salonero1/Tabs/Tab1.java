@@ -1,4 +1,4 @@
-package main.salonero1;
+package main.salonero1.Tabs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,25 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
+import main.salonero1.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import samples.exoguru.materialtabs.adapters.GridAdapter;
-import samples.exoguru.materialtabs.adapters.adaptertiendas;
-import samples.exoguru.materialtabs.cupones.Cupon;
-import samples.exoguru.materialtabs.cupones.tiendas;
-import samples.exoguru.materialtabs.webservice.VolleySingleton;
 
 /**
  * Created by Dani on 05/08/2015.

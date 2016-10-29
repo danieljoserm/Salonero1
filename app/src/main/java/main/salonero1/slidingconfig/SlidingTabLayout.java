@@ -1,4 +1,4 @@
-package slidingconfig;
+package main.salonero1.slidingconfig;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import main.salonero1.R;
-import samples.exoguru.materialtabs.R;
+
 
 
 public class SlidingTabLayout extends HorizontalScrollView {
@@ -193,7 +193,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 tabView.setSelected(true);
             }
 
-            tabTitleView.setTextColor(getResources().getColorStateList(R.color.fondos));
+            tabTitleView.setTextColor(getResources().getColorStateList(R.color.colorAccent));
             tabTitleView.setTextSize(14);
         }
     }

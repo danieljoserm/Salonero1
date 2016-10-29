@@ -14,7 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import slidingconfig.SlidingTabLayout;
+import main.salonero1.slidingconfig.SlidingTabLayout;
+import main.salonero1.slidingconfig.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorazul);
+                return getResources().getColor(R.color.colorAccent);
             }
         });
 
