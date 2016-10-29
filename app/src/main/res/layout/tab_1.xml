@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:background="@android:color/transparent"
+
+
+     />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_addButtonColorNormal="@color/colorplat"
+        fab:fab_addButtonColorPressed="@color/texto"
+        fab:fab_addButtonPlusIconColor="@color/fondos"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+
+
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action with a very long name that won\'t fit on the screen"
+            fab:fab_colorPressed="@color/fondos"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action with a very long name that won\'t fit on the screen"
+            fab:fab_colorPressed="@color/fondos"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action with a very long name that won\'t fit on the screen"
+            fab:fab_colorPressed="@color/fondos"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action with a very long name that won\'t fit on the screen"
+            fab:fab_colorPressed="@color/fondos"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_o"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action A"
+            fab:fab_colorPressed="@color/fondos"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+
+
+
+
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions_otro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_addButtonColorNormal="@color/colorplat"
+        fab:fab_addButtonColorPressed="@color/texto"
+        fab:fab_addButtonPlusIconColor="@color/fondos"
+
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/multiple_actions"
+        android:layout_toStartOf="@+id/multiple_actions">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action with a very long name that won\'t fit on the screen"
+            fab:fab_colorPressed="@color/fondos"/>
+
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action A"
+            fab:fab_colorPressed="@color/fondos"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_u"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action A"
+            fab:fab_colorPressed="@color/fondos"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action A"
+            fab:fab_colorPressed="@color/fondos"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorplat"
+            fab:fab_title="Action A"
+            fab:fab_colorPressed="@color/fondos"/>
+
+
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+    <!-- NOT SO IMPORTANT CUSTOM UI STUFF -->
+
+
+</RelativeLayout>
