@@ -16,6 +16,18 @@
 
      />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="PRobando que es un tab"
+        android:textAllCaps="true"
+        android:textColor="#86AD33"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
 
 
     <!-- NOT SO IMPORTANT CUSTOM UI STUFF -->
