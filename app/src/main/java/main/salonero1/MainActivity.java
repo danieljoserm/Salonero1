@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     SlidingTabLayout tabs;
     CharSequence Titles[]={"Nuevos","mas de 50%","Todos","hola", "bebidas"};
     int Numboftabs =5;
+    //fdf
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
