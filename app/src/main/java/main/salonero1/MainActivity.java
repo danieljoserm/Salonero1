@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Nuevos","mas de 50%","Todos","hola"};
-    int Numboftabs =4;
+    CharSequence Titles[]={"Nuevos","mas de 50%","Todos","hola", "bebidas"};
+    int Numboftabs =5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
