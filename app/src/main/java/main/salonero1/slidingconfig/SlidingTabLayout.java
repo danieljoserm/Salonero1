@@ -15,7 +15,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import samples.exoguru.materialtabs.R;
+import main.salonero1.R;
+
 
 
 public class SlidingTabLayout extends HorizontalScrollView {
@@ -192,7 +193,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 tabView.setSelected(true);
             }
 
-            tabTitleView.setTextColor(getResources().getColorStateList(R.color.fondos));
+            tabTitleView.setTextColor(getResources().getColorStateList(R.color.colorAccent));
             tabTitleView.setTextSize(14);
         }
     }

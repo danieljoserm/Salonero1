@@ -41,7 +41,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
 
-            Tab1 tab1 = new Tab1();
+            Tab1 tab1 = Tab1.newInstance(palabras.get(position));
             return tab1;
 
 
