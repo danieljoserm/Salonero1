@@ -14,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.salonero1.slidingconfig.SlidingTabLayout;
 import main.salonero1.slidingconfig.ViewPagerAdapter;
 
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //
-
+    List<String> palabras;
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
@@ -47,6 +50,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        palabras = new ArrayList<String>();
+        palabras.add("hola");
+        palabras.add("diferente");
+        palabras.add("porfa");
+        palabras.add("resf");
 
 
 
@@ -58,8 +66,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs,palabras);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
