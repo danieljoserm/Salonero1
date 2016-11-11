@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.salonero1.slidingconfig.SlidingTabLayout;
-import main.salonero1.slidingconfig.ViewPagerAdapter;
+import main.salonero1.Adapters.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

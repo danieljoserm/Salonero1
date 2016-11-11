@@ -1,4 +1,4 @@
-package main.salonero1.slidingconfig;
+package main.salonero1.Adapters;
 
 
 import android.support.v4.app.Fragment;
