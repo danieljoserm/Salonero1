@@ -30,6 +30,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         palabras.add("diferente");
         palabras.add("porfa");
         palabras.add("resf");
+        palabras.add("resf");
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
 

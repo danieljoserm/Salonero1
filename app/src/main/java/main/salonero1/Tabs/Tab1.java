@@ -88,18 +88,18 @@ String texto;
 
 
 
-      //  mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerview_menuitem);
-       // mRecyclerView.setHasFixedSize(true);
+        mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerview_menuitem);
+        mRecyclerView.setHasFixedSize(true);
 
-       // mLayoutManager = new LinearLayoutManager(rootView.getContext());
-//        mRecyclerView.setLayoutManager(mLayoutManager);
+     //   mLayoutManager = new LinearLayoutManager(rootView.getContext());
+       // mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //  mLayoutManager = new GridLayoutManager(rootView.getContext(), 1);
-        // mRecyclerView.setLayoutManager(mLayoutManager);
+          mLayoutManager = new GridLayoutManager(rootView.getContext(), 1);
+         mRecyclerView.setLayoutManager(mLayoutManager);
 
-  //      Adapter = new adaptermenuitem(menuitems);
+        Adapter = new adaptermenuitem(menuitems);
         //
-      //  mRecyclerView.setAdapter(Adapter);
+        mRecyclerView.setAdapter(Adapter);
 
 
 
