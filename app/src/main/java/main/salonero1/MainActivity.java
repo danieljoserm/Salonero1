@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Nuevos","mas de 50%","Todos","hola", "bebidas"};
+    CharSequence Titles[]={"Nuevos","mas de 50%","Todos","hola","jesdf" };
     int Numboftabs =5;
     //fdf
 
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
         palabras.add("hola");
         palabras.add("diferente");
         palabras.add("porfa");
+        palabras.add("resf");
         palabras.add("resf");
 
 
