@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import main.salonero1.Tabs.Tab1;
@@ -24,13 +25,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb, List<String> palabras1 ) {
         super(fm);
-
         palabras = new ArrayList<String>();
-        palabras.add("hola");
-        palabras.add("diferente");
-        palabras.add("porfa");
-        palabras.add("resf");
-        palabras.add("resf");
+
+
+        for(int i=0;i<palabras1.size();i++) {
+            palabras.add(palabras1.get(i));
+        }
+
+
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
 

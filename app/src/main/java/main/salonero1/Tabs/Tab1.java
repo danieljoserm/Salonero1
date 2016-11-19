@@ -35,8 +35,8 @@ String texto;
 
         readBundle(getArguments());
 
-       // TextView prueba = (TextView) rootView.findViewById(R.id.Textviewfragmento1);
-       // prueba.setText(texto);
+      //  TextView prueba = (TextView) rootView.findViewById(R.id.Textviewfragmento1);
+       /// prueba.setText(texto);
 
 
 
