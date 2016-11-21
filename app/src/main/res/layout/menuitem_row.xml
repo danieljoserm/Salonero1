@@ -44,7 +44,7 @@
 
             <com.android.volley.toolbox.NetworkImageView
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_height="102dp"
                 android:id="@+id/imagenPost"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -69,24 +69,21 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="Nombre"
-                android:id="@+id/Nombremenuitem"
-                android:layout_gravity="center_horizontal" />
+                android:id="@+id/Nombremenuitem" />
 
             <TextView
-                android:layout_width="86dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
                 android:text="Precio"
-                android:id="@+id/Preciomenuitem"
-                android:layout_gravity="center_horizontal" />
+                android:id="@+id/Preciomenuitem" />
 
             <TextView
                 android:text="Cantidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Cantidadmenuitem"
-                android:layout_gravity="center_horizontal" />
+                android:id="@+id/Cantidadmenuitem" />
 
 
 

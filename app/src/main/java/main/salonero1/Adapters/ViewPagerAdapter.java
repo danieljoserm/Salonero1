@@ -6,11 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import main.salonero1.Tabs.Tab1;
-import main.salonero1.Tabs.Tab2;
 
 
 /**
