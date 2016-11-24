@@ -36,9 +36,9 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         menuitem menuitem = menuitems.get(i);
 
 
-        viewHolder.nombremenuitem12.setText(menuitem.getNombremenuitem());
-       viewHolder.cantidad.setText( Integer.toString(menuitem.getCantidad()));
-       viewHolder.precio.setText( Integer.toString(menuitem.getPrecio()));
+        viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
+       viewHolder.cantidad.setText("Precio:"+ Integer.toString(menuitem.getCantidad()));
+       viewHolder.precio.setText("Cantidad:"+ Integer.toString(menuitem.getPrecio()));
 
     }
 

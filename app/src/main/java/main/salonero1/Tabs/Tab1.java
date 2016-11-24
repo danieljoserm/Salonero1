@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,38 +40,38 @@ String texto;
 
         menuitems= new ArrayList<>();
         menuitem hola= new menuitem();
-        hola.setnombremenuitem("hola");
+        hola.setnombremenuitem("Pollo con garbanzos");
         hola.setCantidad(1);
         hola.setprecio(2);
 
 
         menuitem hola2= new menuitem();
-        hola2.setnombremenuitem("si");
+        hola2.setnombremenuitem("Casuela de queso");
         hola2.setCantidad(2);
         hola2.setprecio(234);
 
         menuitem hola3= new menuitem();
-        hola3.setnombremenuitem("hola");
+        hola3.setnombremenuitem("Pizza");
         hola3.setCantidad(424);
         hola3.setprecio(235);
 
         menuitem hola4= new menuitem();
-        hola4.setnombremenuitem("adios");
+        hola4.setnombremenuitem("Higado en salsa");
         hola4.setCantidad(256);
         hola4.setprecio(2343);
 
 
         menuitem hola5= new menuitem();
-        hola5.setnombremenuitem("adios");
+        hola5.setnombremenuitem("Paella");
         hola5.setCantidad(256);
         hola5.setprecio(2343);
 
         menuitem hola6= new menuitem();
-        hola6.setnombremenuitem("adios");
+        hola6.setnombremenuitem("Sopa Azteca");
         hola6.setCantidad(256);
         hola6.setprecio(2343);
         menuitem hola7= new menuitem();
-        hola7.setnombremenuitem("adios");
+        hola7.setnombremenuitem("Pastel de papa");
         hola7.setCantidad(256);
         hola7.setprecio(2343);
 

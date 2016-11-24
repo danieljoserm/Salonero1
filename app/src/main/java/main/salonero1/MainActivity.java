@@ -8,24 +8,45 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.clases.menuitem;
 import main.salonero1.slidingconfig.SlidingTabLayout;
 import main.salonero1.Adapters.ViewPagerAdapter;
+import main.salonero1.webservice.Constantes;
+import main.salonero1.webservice.VolleySingleton;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //
+    //web service
+    private Gson gson = new Gson();
+    menuitem[] menu;
+    //
+
     List<String> palabras;
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Nuevos","mas de 50%","Todos","hola","jesdf" };
+    CharSequence Titles[]={"Entradas","Bebidas","Postres","Platos Fuertes","Cocteles" };
     int Numboftabs =5;
     //fdf
 
@@ -35,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -55,6 +75,7 @@ public class MainActivity extends AppCompatActivity
         palabras.add("resf");
         palabras.add("resf");
 
+      cargarDatos();
 
 
 
@@ -63,8 +84,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
+/*
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs,palabras);
 
         // Assigning ViewPager View and setting the adapter
@@ -86,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
-
+*/
 
 
 
@@ -156,4 +176,75 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+    public void cargarDatos() {
+        // Petición GET
+        VolleySingleton.getInstance(this).
+                addToRequestQueue(
+                        new JsonObjectRequest(
+                                Request.Method.GET,
+                                Constantes.GETcategorias,
+                                null,
+                                new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        // Procesar la respuesta Json
+                                        procesarRespuestarecibido(response);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Log.d("", "Error Volley: " + error.toString());
+                                    }
+                                }
+
+                        )
+                );
+    }
+
+    private void procesarRespuestarecibido(JSONObject response) {
+        try {
+            // Obtener atributo "estado"
+            String estado = response.getString("estado");
+
+            switch (estado) {
+
+
+
+                case "1": // EXITO
+
+
+
+                    // Obtener array "metas" Json
+                    JSONArray mensaje = response.getJSONArray("metas");
+                    // Parsear con Gson
+                    menu = gson.fromJson(mensaje.toString(), menuitem[].class);
+
+                   // cupones = new ArrayList<Cupon1>(Arrays.asList(cupones1));
+                   // mAdapter = new adaptercupones(cupones);
+                   // mRecyclerView.setAdapter(mAdapter);
+
+
+                    break;
+                case "2": // FALLIDO
+                    String mensaje2 = response.getString("mensaje");
+                    Toast.makeText(
+                            this,
+                            mensaje2,
+                            Toast.LENGTH_LONG).show();
+                    break;
+            }
+
+        } catch (JSONException e) {
+            Log.d("", e.getMessage());
+        }
+
+    }
+
+
+
 }
