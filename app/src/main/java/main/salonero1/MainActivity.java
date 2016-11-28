@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import main.salonero1.clases.menuitem;
+import main.salonero1.clases.categorias;
 import main.salonero1.slidingconfig.SlidingTabLayout;
 import main.salonero1.Adapters.ViewPagerAdapter;
 import main.salonero1.webservice.Constantes;
@@ -39,9 +39,11 @@ public class MainActivity extends AppCompatActivity
     //
     //web service
     private Gson gson = new Gson();
-    menuitem[] menu;
-    //
 
+    categorias[] categorias;
+
+
+    List<categorias> categoriaslista;
     List<String> palabras;
     ViewPager pager;
     ViewPagerAdapter adapter;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-/*
+
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs,palabras);
 
         // Assigning ViewPager View and setting the adapter
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
-*/
+
 
 
 
@@ -220,9 +222,18 @@ public class MainActivity extends AppCompatActivity
 
 
                     // Obtener array "metas" Json
-                    JSONArray mensaje = response.getJSONArray("metas");
+                    JSONArray mensaje = response.getJSONArray("categorias");
                     // Parsear con Gson
-                    menu = gson.fromJson(mensaje.toString(), menuitem[].class);
+                    categorias = gson.fromJson(mensaje.toString(), categorias[].class);
+
+                //    categoriaslista= new ArrayList<categorias>(Arrays.asList(categorias));
+
+
+
+
+
+                  //  CharSequence[] Titles1=categoriaslista.toArray(new CharSequence[categoriaslista.size()]);
+                   //System.out.println(Arrays.toString(Titles1));
 
                    // cupones = new ArrayList<Cupon1>(Arrays.asList(cupones1));
                    // mAdapter = new adaptercupones(cupones);
