@@ -1,11 +1,15 @@
 package main.salonero1;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -177,7 +181,25 @@ public class MainActivity extends AppCompatActivity
                                         Log.d("", "Error Volley: " + error.toString());
 
 
+                                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                        alertDialog.setTitle("Aviso");
+                                        alertDialog.setMessage("No posee conexión a internet");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Salir",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        android.os.Process.killProcess(android.os.Process.myPid());
+                                                        System.exit(1);
+                                                    }
+                                                });
+                                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Conexiones",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                                                    }
+                                                });
 
+
+                                        alertDialog.show();
                                     }
                                 }
 
