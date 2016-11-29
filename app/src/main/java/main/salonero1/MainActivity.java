@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
 
     List<categorias> categoriaslista;
-    List<String> palabras;
+
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
@@ -70,12 +70,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        palabras = new ArrayList<String>();
-        palabras.add("hola");
-        palabras.add("diferente");
-        palabras.add("porfa");
-        palabras.add("resf");
-        palabras.add("resf");
+
 
       cargarDatos();
 
@@ -87,27 +82,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs,palabras);
-
-        // Assigning ViewPager View and setting the adapter
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
-
-        // Assiging the Sliding Tab Layout View
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
-        // tabs.setSelectedIndicatorColors(R.color.fondos);
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.colorAccent);
-            }
-        });
-
-        // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(pager);
 
 
 
@@ -201,6 +175,9 @@ public class MainActivity extends AppCompatActivity
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
                                         Log.d("", "Error Volley: " + error.toString());
+
+
+
                                     }
                                 }
 
@@ -226,14 +203,42 @@ public class MainActivity extends AppCompatActivity
                     // Parsear con Gson
                     categorias = gson.fromJson(mensaje.toString(), categorias[].class);
 
-                //    categoriaslista= new ArrayList<categorias>(Arrays.asList(categorias));
+                    categoriaslista= new ArrayList<categorias>(Arrays.asList(categorias));
+
+                    List<CharSequence> conversion=new ArrayList<CharSequence>() ;
 
 
+                    for(int i=0;i<categoriaslista.size();i++) {
+                                conversion.add(categoriaslista.get(i).getNombre());
+
+                    }
+
+           final CharSequence[] Titles1=conversion.toArray(new CharSequence[conversion.size()]);
+
+                    adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles1,categoriaslista.size());
+
+                    // Assigning ViewPager View and setting the adapter
+                    pager = (ViewPager) findViewById(R.id.pager);
+                    pager.setAdapter(adapter);
+
+                    // Assiging the Sliding Tab Layout View
+                    tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+                    tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+                    // tabs.setSelectedIndicatorColors(R.color.fondos);
+                    // Setting Custom Color for the Scroll bar indicator of the Tab View
+
+                    tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+                        @Override
+                        public int getIndicatorColor(int position) {
+                            return getResources().getColor(R.color.colorAccent);
+                        }
+                    });
+
+                    // Setting the ViewPager For the SlidingTabsLayout
+                    tabs.setViewPager(pager);
 
 
-
-                  //  CharSequence[] Titles1=categoriaslista.toArray(new CharSequence[categoriaslista.size()]);
-                   //System.out.println(Arrays.toString(Titles1));
+                    //System.out.println(Arrays.toString(Titles1));
 
                    // cupones = new ArrayList<Cupon1>(Arrays.asList(cupones1));
                    // mAdapter = new adaptercupones(cupones);

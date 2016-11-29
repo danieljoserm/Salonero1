@@ -15,20 +15,20 @@ import main.salonero1.Tabs.Tab1;
  * Created by Edwin on 15/02/2015.
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-    List<String> palabras;
+   // List<String> palabras;
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb, List<String> palabras1 ) {
+    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
         super(fm);
-        palabras = new ArrayList<String>();
+      //  palabras = new ArrayList<String>();
 
 
-        for(int i=0;i<palabras1.size();i++) {
-            palabras.add(palabras1.get(i));
-        }
+       // for(int i=0;i<palabras1.size();i++) {
+       //     palabras.add(palabras1.get(i));
+      //  }
 
 
         this.Titles = mTitles;
@@ -42,7 +42,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
 
-            Tab1 tab1 = Tab1.newInstance(palabras.get(position));
+            Tab1 tab1 = Tab1.newInstance(Titles[position].toString());
             return tab1;
 
 

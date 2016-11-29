@@ -9,10 +9,10 @@ public class categorias {
 
 
 
-    public categorias(String Nombre){
-     this.Nombre=Nombre;
-    }
 
+    public categorias(String Nombre){
+        this.Nombre=Nombre;
+    }
 
     public void setnombre(String Nombre) {
         this.Nombre = Nombre;
