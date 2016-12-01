@@ -3,4 +3,21 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+
+
+
+
+
+    <color name="Colortexto2">#FF9900</color>
+
+    <color name="tabsScrollColor">#004D40</color>
+    <color name="texto">#e60000</color>
+    <color name="fondos">#000</color>
+    <color name="colorhint">#FFFF00</color>
+    <color name="colorgris">#595959</color>
+    <color name="colorplat">#e0e0eb</color>
+
+    <color name="colorazul">#000033</color>
 </resources>
