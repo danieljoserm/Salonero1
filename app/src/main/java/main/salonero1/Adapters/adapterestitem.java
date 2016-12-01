@@ -19,12 +19,14 @@ public class adapterestitem extends RecyclerView.Adapter<adapterestitem.ViewHold
 
     List<Restau> Restaurante1;
 
+
     public adapterestitem(List<Restau> Restaurante) {
         super();
 
         Restaurante1=Restaurante;
 
     }
+
 
 
     @Override
