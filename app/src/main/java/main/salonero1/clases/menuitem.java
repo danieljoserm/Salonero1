@@ -2,16 +2,16 @@ package main.salonero1.clases;
 
 public class menuitem {
 
-    private String nombremenuitem;
+    private String Nombre;
     private int cantidad;
-    private int precio;
+    private int Precio;
 
 
 
-    public menuitem(String nombremenuitem1, int cantidad1, int precio1){
+    public menuitem(String Nombre, int cantidad1, int precio1){
         this.cantidad=cantidad1;
-        this.nombremenuitem=nombremenuitem1;
-        this.precio=precio1;
+        this.Nombre=Nombre;
+        this.Precio=precio1;
     }
 
     public menuitem(){
@@ -20,7 +20,7 @@ public class menuitem {
     }
 
         public void setnombremenuitem(String nombremenuitem) {
-            this.nombremenuitem = nombremenuitem ;
+            this.Nombre = Nombre ;
         }
 
 
@@ -28,7 +28,7 @@ public class menuitem {
         this.cantidad=cantidad ;
     }
     public void setprecio(int precio) {
-        this.precio=precio ;
+        this.Precio=precio ;
     }
 
 
@@ -40,7 +40,7 @@ public class menuitem {
     public String getNombremenuitem(){
 
 
-        return nombremenuitem;
+        return Nombre;
     }
 
 
@@ -54,7 +54,7 @@ public class menuitem {
     public int getPrecio(){
 
 
-        return precio;
+        return Precio;
     }
 
 

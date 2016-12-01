@@ -24,6 +24,7 @@ public class Constantes {
     /**
      * URLs del Web Service
      */
+    public static final String GETitems = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_";
     public static final String GETrestaurante = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_restaurante.php";
     public static final String GETcategorias= "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_categorias.php";
     public static final String GETplatosfuertes = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_tiendas.php";
