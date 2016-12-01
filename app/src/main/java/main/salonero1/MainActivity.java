@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
     categorias[] categorias;
 
-
+    String Restnombre;
     List<categorias> categoriaslista;
 
     ViewPager pager;
@@ -73,6 +73,17 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        Intent i= getIntent();
+        Bundle b = i.getExtras();
+
+        if(b!=null)
+        {
+            Restnombre =(String) b.get("Nombreresta");
+
+        }
+        Toast.makeText(this.getBaseContext(),Restnombre ,
+                Toast.LENGTH_SHORT).show();
 
 
 

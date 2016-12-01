@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import main.salonero1.ItemClickListener;
 import main.salonero1.R;
 import main.salonero1.clases.Restau;
 import main.salonero1.clases.menuitem;
@@ -18,6 +19,7 @@ import main.salonero1.clases.menuitem;
 public class adapterestitem extends RecyclerView.Adapter<adapterestitem.ViewHolder>  {
 
     List<Restau> Restaurante1;
+    private ItemClickListener clickListener;
 
 
     public adapterestitem(List<Restau> Restaurante) {
@@ -54,8 +56,12 @@ public class adapterestitem extends RecyclerView.Adapter<adapterestitem.ViewHold
         return Restaurante1.size();
     }
 
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
+    }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+
+    class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
 
 
         public TextView Nombre;
@@ -65,8 +71,13 @@ public class adapterestitem extends RecyclerView.Adapter<adapterestitem.ViewHold
             super(itemView);
 
             Nombre = (TextView) itemView.findViewById(R.id.nombrerest);
+            itemView.setOnClickListener(this);
 
+        }
 
+        @Override
+        public void onClick(View view) {
+            if (clickListener != null) clickListener.onClick(view, getAdapterPosition());
         }
     }
 

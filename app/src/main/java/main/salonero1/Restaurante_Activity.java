@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,7 +35,7 @@ import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.Constantes;
 import main.salonero1.webservice.VolleySingleton;
 
-public class Restaurante_Activity extends AppCompatActivity {
+public class Restaurante_Activity extends AppCompatActivity  implements ItemClickListener{
 
     Restau[] Restaurante;
     List<Restau> Restaurante1;
@@ -43,6 +44,7 @@ public class Restaurante_Activity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter Adapter;
+    adapterestitem mAdapter;
 
 
 
@@ -58,6 +60,19 @@ public class Restaurante_Activity extends AppCompatActivity {
 
         cargarDatos();
 
+
+
+    }
+
+
+
+    @Override
+    public void onClick(View view, int position) {
+        Toast.makeText(this.getBaseContext(),"item:"+position+Restaurante1.get(position).getNombre() ,
+                Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("Nombreresta",Restaurante1.get(position).getNombre());
+        startActivity(i);
 
     }
 
@@ -144,9 +159,10 @@ public class Restaurante_Activity extends AppCompatActivity {
                     mLayoutManager = new GridLayoutManager(this, 2);
                     mRecyclerView.setLayoutManager(mLayoutManager);
 
-                    Adapter = new adapterestitem(Restaurante1);
+                    mAdapter = new adapterestitem(Restaurante1);
                     //
-                    mRecyclerView.setAdapter(Adapter);
+                    mRecyclerView.setAdapter(mAdapter);
+                    mAdapter.setClickListener(this);
 
 
 
