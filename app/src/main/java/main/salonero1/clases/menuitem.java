@@ -3,13 +3,13 @@ package main.salonero1.clases;
 public class menuitem {
 
     private String Nombre;
-    private int cantidad;
-    private int Precio;
+     private int Precio;
+    private int Cantidad;
 
 
 
     public menuitem(String Nombre, int cantidad1, int precio1){
-        this.cantidad=cantidad1;
+        this.Cantidad=cantidad1;
         this.Nombre=Nombre;
         this.Precio=precio1;
     }
@@ -25,7 +25,7 @@ public class menuitem {
 
 
     public void setCantidad(int cantidad   ) {
-        this.cantidad=cantidad ;
+        this.Cantidad=cantidad ;
     }
     public void setprecio(int precio) {
         this.Precio=precio ;
@@ -47,7 +47,7 @@ public class menuitem {
     public int getCantidad(){
 
 
-        return cantidad;
+        return Cantidad;
     }
 
 
