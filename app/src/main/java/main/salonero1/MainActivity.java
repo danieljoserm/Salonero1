@@ -132,11 +132,11 @@ public class MainActivity extends AppCompatActivity
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
 
-
+            Toast.makeText(MainActivity.this,"probando" ,Toast.LENGTH_SHORT).show();
             //global = (List<Cupon>) i.getSerializableExtra("LIST");
 
 
-            Toast.makeText(MainActivity.this,"probando" ,Toast.LENGTH_SHORT).show();
+
         }
     };
 

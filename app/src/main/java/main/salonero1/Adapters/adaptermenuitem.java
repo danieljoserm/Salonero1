@@ -59,7 +59,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
                 Intent intent = new Intent("custom-message");
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
-                intent.putExtra("quantity",(Serializable) menuitem);
+                intent.putExtra("quantity","hola");
 
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
@@ -85,7 +85,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
                 Intent intent = new Intent("custom-message");
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
-                intent.putExtra("quantity",(Serializable) menuitem);
+                intent.putExtra("quantity","hola");
 
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
