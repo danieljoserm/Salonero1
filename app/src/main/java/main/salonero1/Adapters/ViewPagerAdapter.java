@@ -4,11 +4,13 @@ package main.salonero1.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import main.salonero1.Tabs.Tab1;
+import main.salonero1.clases.menuitem;
 
 
 /**
@@ -18,17 +20,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
    // List<String> palabras;
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
-
+    List<menuitem> Menu;
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
+    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb,    List<menuitem> menu) {
         super(fm);
-      //  palabras = new ArrayList<String>();
-
-
-       // for(int i=0;i<palabras1.size();i++) {
-       //     palabras.add(palabras1.get(i));
-      //  }
+       Menu= new ArrayList<menuitem>();
+         for(int i=0;i<menu.size();i++) {
+            Menu.add(menu.get(i));
+        }
 
 
         this.Titles = mTitles;

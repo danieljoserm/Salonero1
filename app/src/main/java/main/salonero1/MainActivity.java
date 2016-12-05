@@ -49,11 +49,15 @@ public class MainActivity extends AppCompatActivity
     //web service
     private Gson gson = new Gson();
 
-    categorias[] categorias;
-    List<menuitem> menu;
-    String Restnombre;
-    List<categorias> categoriaslista;
 
+    List<menuitem> menu;
+    menuitem[] menulista;
+
+    String Restnombre;
+
+
+    List<categorias> categoriaslista;
+    categorias[] categorias;
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
@@ -205,7 +209,7 @@ public class MainActivity extends AppCompatActivity
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GETcategorias,
+                                Constantes.GETmenu,
                                 null,
                                 new Response.Listener<JSONObject>() {
 
@@ -261,25 +265,47 @@ public class MainActivity extends AppCompatActivity
 
 
                     // Obtener array "metas" Json
-                    JSONArray mensaje = response.getJSONArray("categorias");
+                    JSONArray mensaje = response.getJSONArray("menu");
                     // Parsear con Gson
-                    categorias = gson.fromJson(mensaje.toString(), categorias[].class);
 
-                    categoriaslista= new ArrayList<categorias>(Arrays.asList(categorias));
+                    menulista= gson.fromJson(mensaje.toString(), menuitem[].class);
 
-                    List<CharSequence> conversion=new ArrayList<CharSequence>() ;
+                    menu=new ArrayList<menuitem>(Arrays.asList(menulista));
 
 
-                    for(int i=0;i<categoriaslista.size();i++) {
-                                conversion.add(categoriaslista.get(i).getNombre());
+                    List<CharSequence> categoria=new ArrayList<CharSequence>();
+
+                    for(int i=0;i<menu.size();i++)
+
+                    {
+                        if(categoria.contains(menu.get(i).getCategoria())){
+
+
+
+                        }
+
+                        else
+
+                        {
+                            categoria.add(menu.get(i).getCategoria());
+
+                        }
 
                     }
 
-           final CharSequence[] Titles1=conversion.toArray(new CharSequence[conversion.size()]);
+
+                    final CharSequence[] Titles1=categoria.toArray(new CharSequence[categoria.size()]);
+
+                   // List<CharSequence> conversion=new ArrayList<CharSequence>() ;
 
 
 
-                    adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles1,categoriaslista.size());
+
+
+
+
+
+                    adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles1,categoria.size(),menu);
 
                     // Assigning ViewPager View and setting the adapter
                     pager = (ViewPager) findViewById(R.id.pager);
@@ -303,11 +329,6 @@ public class MainActivity extends AppCompatActivity
                     tabs.setViewPager(pager);
 
 
-                    //System.out.println(Arrays.toString(Titles1));
-
-                   // cupones = new ArrayList<Cupon1>(Arrays.asList(cupones1));
-                   // mAdapter = new adaptercupones(cupones);
-                   // mRecyclerView.setAdapter(mAdapter);
 
 
                     break;

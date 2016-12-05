@@ -65,7 +65,11 @@ String texto;
         mLayoutManager = new GridLayoutManager(rootView.getContext(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        cargarDatos();
+    //    Adapter = new adaptermenuitem(menuitems1,getActivity());
+        //
+    //    mRecyclerView.setAdapter(Adapter);
+
+
 
 
 
@@ -81,7 +85,7 @@ String texto;
 
 
 
-    public static Tab1 newInstance( String message)
+    public static Tab1 newInstance( String message,String menuitem)
     {
         Tab1 fragment = new Tab1();
         Bundle bundle = new Bundle(2);
@@ -99,83 +103,7 @@ String texto;
 
 
 
-    public void cargarDatos() {
-        // Petición GET
-        VolleySingleton.getInstance(getActivity()).
-                addToRequestQueue(
-                        new JsonObjectRequest(
-                                Request.Method.GET,
-                                Constantes.GETitems+texto+".php",
-                                null,
-                                new Response.Listener<JSONObject>() {
 
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        // Procesar la respuesta Json
-
-
-
-                                        procesarRespuestarecibido(response);
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Log.d("", "Error Volley: " + error.toString());
-                                    }
-                                }
-
-                        )
-                );
-    }
-
-
-    private void procesarRespuestarecibido(JSONObject response) {
-
-
-        try {
-            // Obtener atributo "estado"
-            String estado = response.getString("estado");
-
-            switch (estado) {
-
-
-
-                case "1": // EXITO
-
-
-
-
-                    JSONArray mensaje = response.getJSONArray("menu");
-
-                   menuitems = gson.fromJson(mensaje.toString(), menuitem[].class);
-
-
-                   menuitems1 = new ArrayList<menuitem>(Arrays.asList(menuitems));
-
-
-
-
-                    Adapter = new adaptermenuitem(menuitems1,getActivity());
-                    //
-                   mRecyclerView.setAdapter(Adapter);
-
-
-                    break;
-                case "2": // FALLIDO
-                    String mensaje2 = response.getString("mensaje");
-                    Toast.makeText(
-                            getActivity(),
-                            mensaje2,
-                            Toast.LENGTH_LONG).show();
-                    break;
-            }
-
-        } catch (JSONException e) {
-            Log.d("", e.getMessage());
-        }
-
-    }
 
 
 

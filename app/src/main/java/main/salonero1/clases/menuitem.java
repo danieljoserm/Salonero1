@@ -5,7 +5,7 @@ public class menuitem {
     private String Nombre;
      private int Precio;
     private int Cantidad;
-    private String Categoria;
+    private String categoria;
     private String Imagen;
 
 
@@ -13,11 +13,11 @@ public class menuitem {
 
 
 
-    public menuitem(String Nombre, int cantidad1, int precio1,String categoria, String imagen){
+    public menuitem(String categoria1,String Nombre, int cantidad1, int precio1, String imagen){
         this.Cantidad=cantidad1;
         this.Nombre=Nombre;
         this.Precio=precio1;
-        this.Categoria=categoria;
+        this.categoria=categoria1;
         this.Imagen=imagen;
     }
 
@@ -39,7 +39,7 @@ public class menuitem {
     }
 
     public void setCategoria(String categoria   ) {
-        this.Categoria=categoria ;
+        this.categoria=categoria ;
     }
 
     public void setImagen(String imagen   ) {
@@ -53,7 +53,7 @@ public class menuitem {
     public String getCategoria(){
 
 
-        return Categoria;
+        return categoria;
     }
 
     public String getImagen(){
