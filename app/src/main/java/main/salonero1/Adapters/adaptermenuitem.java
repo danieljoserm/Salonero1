@@ -1,5 +1,8 @@
 package main.salonero1.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 
 import main.salonero1.R;
@@ -17,12 +21,13 @@ import main.salonero1.clases.menuitem;
 public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHolder>  {
 
     List<menuitem> menuitems;
+    Context context;
 
-    public adaptermenuitem(List<menuitem> menuitems12) {
+    public adaptermenuitem(List<menuitem> menuitems12,Context context1) {
         super();
 
         menuitems=menuitems12;
-
+        context=context1;
     }
 
     @Override
@@ -51,6 +56,13 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
                 menuitems.get(posicionj).setCantidad(menuitems.get(posicionj).getCantidad()+1);
 
+
+                Intent intent = new Intent("custom-message");
+                //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
+                intent.putExtra("quantity",(Serializable) menuitem);
+
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
                 notifyDataSetChanged();
             }
         });
@@ -61,11 +73,21 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             public void onClick(View v) {
 
 
+
+
+
+
                 if(menuitems.get(posicionj).getCantidad()!=0)
                 {
                     menuitems.get(posicionj).setCantidad(menuitems.get(posicionj).getCantidad() - 1);
 
                 }
+
+                Intent intent = new Intent("custom-message");
+                //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
+                intent.putExtra("quantity",(Serializable) menuitem);
+
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 notifyDataSetChanged();
 

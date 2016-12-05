@@ -1,9 +1,13 @@
 package main.salonero1;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import main.salonero1.clases.categorias;
+import main.salonero1.clases.menuitem;
 import main.salonero1.slidingconfig.SlidingTabLayout;
 import main.salonero1.Adapters.ViewPagerAdapter;
 import main.salonero1.webservice.Constantes;
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     private Gson gson = new Gson();
 
     categorias[] categorias;
-
+    List<menuitem> menu;
     String Restnombre;
     List<categorias> categoriaslista;
 
@@ -76,6 +81,15 @@ public class MainActivity extends AppCompatActivity
 
         Intent i= getIntent();
         Bundle b = i.getExtras();
+
+
+        menu=new ArrayList<menuitem>();
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-message"));
+
+
 
         if(b!=null)
         {
@@ -110,6 +124,21 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+
+
+            //global = (List<Cupon>) i.getSerializableExtra("LIST");
+
+
+            Toast.makeText(MainActivity.this,"probando" ,Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onBackPressed() {

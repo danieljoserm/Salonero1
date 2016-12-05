@@ -156,7 +156,7 @@ String texto;
 
 
 
-                    Adapter = new adaptermenuitem(menuitems1);
+                    Adapter = new adaptermenuitem(menuitems1,getActivity());
                     //
                    mRecyclerView.setAdapter(Adapter);
 
