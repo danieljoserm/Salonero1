@@ -277,6 +277,8 @@ public class MainActivity extends AppCompatActivity
 
            final CharSequence[] Titles1=conversion.toArray(new CharSequence[conversion.size()]);
 
+
+
                     adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles1,categoriaslista.size());
 
                     // Assigning ViewPager View and setting the adapter
