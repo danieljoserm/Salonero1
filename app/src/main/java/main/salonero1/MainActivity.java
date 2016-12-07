@@ -43,6 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import main.salonero1.Tabs.Tabdesgloce;
+import main.salonero1.Tabs.dialogcuenta;
 import main.salonero1.clases.categorias;
 import main.salonero1.clases.menuitem;
 import main.salonero1.slidingconfig.SlidingTabLayout;
@@ -125,6 +126,17 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(Restnombre);
 
 
+        FragmentManager fm = getFragmentManager();
+        dialogcuenta dialogFragment = new dialogcuenta ();
+        dialogFragment.show(fm, "Sample Fragment");
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+        ft.replace(R.id.Fragmentlayout, new Tabdesgloce());
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+        ft.commit();
+
 
       cargarDatos();
 
@@ -198,12 +210,7 @@ public class MainActivity extends AppCompatActivity
             case KeyEvent.KEYCODE_MENU:
                 Toast.makeText(MainActivity.this,"hola",Toast.LENGTH_SHORT).show();
 
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-                ft.replace(R.id.Fragmentlayout, new Tabdesgloce());
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
-                ft.commit();
+
 
 
 
