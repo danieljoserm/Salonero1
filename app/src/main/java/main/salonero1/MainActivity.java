@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
     //fdf
     //botones
 
-
+    FragmentTransaction ft;
 
 
 
@@ -126,16 +126,13 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(Restnombre);
 
 
-        FragmentManager fm = getFragmentManager();
-        dialogcuenta dialogFragment = new dialogcuenta ();
-        dialogFragment.show(fm, "Sample Fragment");
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-        ft.replace(R.id.Fragmentlayout, new Tabdesgloce());
+
+
+
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
-        ft.commit();
+
 
 
       cargarDatos();
@@ -208,25 +205,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onKeyDown(int keycode, KeyEvent e) {
         switch(keycode) {
             case KeyEvent.KEYCODE_MENU:
-                Toast.makeText(MainActivity.this,"hola",Toast.LENGTH_SHORT).show();
 
 
 
+            return true;
+            default:
+
+
+            break;
 
 
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        // Begin the transaction
-
-
-                    }
-                }, 100);
-
-
-                return true;
         }
 
         return super.onKeyDown(keycode, e);
@@ -241,6 +230,16 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.carritocompra) {
+
+            ft = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+            ft.replace(R.id.Fragmentlayout, new Tabdesgloce());
+            ft.commit();
+
+
+            FragmentManager fm = getFragmentManager();
+            dialogcuenta dialogFragment = new dialogcuenta ();
+            dialogFragment.show(fm, "Sample Fragment");
 
             Toast.makeText(MainActivity.this,"hola" ,Toast.LENGTH_SHORT).show();
 
