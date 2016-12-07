@@ -1,6 +1,8 @@
 package main.salonero1;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.app.FragmentManager;
+import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     menuitem[] menulista;
 
     String Restnombre;
-    DrawerLayout Drawer;
+
 
     List<categorias> categoriaslista;
     categorias[] categorias;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
 
         menu=new ArrayList<menuitem>();
-        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
+
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
@@ -196,12 +198,23 @@ public class MainActivity extends AppCompatActivity
             case KeyEvent.KEYCODE_MENU:
                 Toast.makeText(MainActivity.this,"hola",Toast.LENGTH_SHORT).show();
 
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+                ft.replace(R.id.Fragmentlayout, new Tabdesgloce());
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+                ft.commit();
+
+
+
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        getSupportFragmentManager().beginTransaction().setTransition(
-                                FragmentTransaction.TRANSIT_NONE
-                        ).add(R.id.DrawerLayout, new Tabdesgloce()).addToBackStack("transition").commit();
+
+                        // Begin the transaction
+
+
                     }
                 }, 100);
 
