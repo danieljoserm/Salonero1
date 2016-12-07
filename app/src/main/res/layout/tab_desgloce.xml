@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondos"
+    tools:context=".MainActivity$PlaceholderFragment1"
+    >
+
+
+
+    <Button
+        android:id="@+id/btn_close4"
+        android:text="go_back"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

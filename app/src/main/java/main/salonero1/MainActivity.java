@@ -1,11 +1,13 @@
 package main.salonero1;
 
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -17,8 +19,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.Tabs.Tabdesgloce;
 import main.salonero1.clases.categorias;
 import main.salonero1.clases.menuitem;
 import main.salonero1.slidingconfig.SlidingTabLayout;
@@ -49,12 +55,12 @@ public class MainActivity extends AppCompatActivity
     //web service
     private Gson gson = new Gson();
 
-
+    private Menu menuchange;
     List<menuitem> menu;
     menuitem[] menulista;
 
     String Restnombre;
-
+    DrawerLayout Drawer;
 
     List<categorias> categoriaslista;
     categorias[] categorias;
@@ -64,6 +70,14 @@ public class MainActivity extends AppCompatActivity
    // CharSequence Titles[]={"Entradas","Bebidas","Postres","Platos Fuertes","Cocteles" };
     //int Numboftabs =5;
     //fdf
+    //botones
+
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.cuenta));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,12 +97,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
+
         Intent i= getIntent();
         Bundle b = i.getExtras();
 
 
         menu=new ArrayList<menuitem>();
-
+        Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
@@ -102,6 +118,9 @@ public class MainActivity extends AppCompatActivity
         }
         Toast.makeText(this.getBaseContext(),Restnombre ,
                 Toast.LENGTH_SHORT).show();
+
+
+        getSupportActionBar().setTitle(Restnombre);
 
 
 
@@ -136,7 +155,13 @@ public class MainActivity extends AppCompatActivity
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
 
-            Toast.makeText(MainActivity.this,"probando" ,Toast.LENGTH_SHORT).show();
+            int index = Integer.parseInt(intent.getStringExtra("posicion"));
+            int  cantidad = Integer.parseInt(intent.getStringExtra("cantidad"));
+
+            menu.get(index).setCantidad(cantidad);
+
+
+            Toast.makeText(MainActivity.this,"probando"+"cantidad:"+cantidad+"posicion:"+index ,Toast.LENGTH_SHORT).show();
             //global = (List<Cupon>) i.getSerializableExtra("LIST");
 
 
@@ -156,9 +181,35 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+
+
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent e) {
+        switch(keycode) {
+            case KeyEvent.KEYCODE_MENU:
+                Toast.makeText(MainActivity.this,"hola",Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSupportFragmentManager().beginTransaction().setTransition(
+                                FragmentTransaction.TRANSIT_NONE
+                        ).add(R.id.DrawerLayout, new Tabdesgloce()).addToBackStack("transition").commit();
+                    }
+                }, 100);
+
+
+                return true;
+        }
+
+        return super.onKeyDown(keycode, e);
     }
 
     @Override
@@ -169,7 +220,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.cuenta) {
+        if (id == R.id.carritocompra) {
+
+            Toast.makeText(MainActivity.this,"hola" ,Toast.LENGTH_SHORT).show();
+
+
+
             return true;
         }
 

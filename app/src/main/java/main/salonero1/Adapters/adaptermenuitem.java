@@ -21,13 +21,15 @@ import main.salonero1.clases.menuitem;
 public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHolder>  {
 
     List<menuitem> menuitems;
+    List<menuitem> menucompleto;
     Context context;
 
-    public adaptermenuitem(List<menuitem> menuitems12,Context context1) {
+    public adaptermenuitem(List<menuitem> menuitemscategoria,Context context1,List<menuitem> menucompleto1) {
         super();
 
-        menuitems=menuitems12;
+        menuitems=menuitemscategoria;
         context=context1;
+        menucompleto=menucompleto1;
     }
 
     @Override
@@ -54,13 +56,14 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             @Override
             public void onClick(View view) {
 
+
                 menuitems.get(posicionj).setCantidad(menuitems.get(posicionj).getCantidad()+1);
 
 
                 Intent intent = new Intent("custom-message");
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
-                intent.putExtra("quantity","hola");
-
+                intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
+                intent.putExtra("posicion",Integer.toString(menuitems.get(posicionj).getindex()) );
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 notifyDataSetChanged();
@@ -83,9 +86,13 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
                 }
 
+
                 Intent intent = new Intent("custom-message");
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
-                intent.putExtra("quantity","hola");
+                intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
+                intent.putExtra("posicion",Integer.toString(menuitems.get(posicionj).getindex()) );
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
 
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 

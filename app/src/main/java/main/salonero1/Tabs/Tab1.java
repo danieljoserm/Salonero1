@@ -1,5 +1,6 @@
 package main.salonero1.Tabs;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,9 +42,10 @@ String texto;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter Adapter;
-  menuitem[] menuitems;
+
     List<menuitem> menuitems1;
-    private Gson gson = new Gson();
+
+    List<menuitem> menucategoria;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,10 +53,19 @@ String texto;
 
         readBundle(getArguments());
 
-      //  TextView prueba = (TextView) rootView.findViewById(R.id.Textviewfragmento1);
-       /// prueba.setText(texto);
+
+        menucategoria= new ArrayList<menuitem>();
 
 
+
+        for(int i=0;i<menuitems1.size();i++){
+
+            if((menuitems1.get(i).getCategoria()).equals(texto)){
+                menucategoria.add(menuitems1.get(i));
+
+            }
+
+       }
 
 
         mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerview_menuitem);
@@ -65,9 +77,9 @@ String texto;
         mLayoutManager = new GridLayoutManager(rootView.getContext(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-    //    Adapter = new adaptermenuitem(menuitems1,getActivity());
+        Adapter = new adaptermenuitem(menucategoria,getActivity(),menuitems1);
         //
-    //    mRecyclerView.setAdapter(Adapter);
+        mRecyclerView.setAdapter(Adapter);
 
 
 
@@ -85,11 +97,12 @@ String texto;
 
 
 
-    public static Tab1 newInstance( String message,String menuitem)
+    public static Tab1 newInstance( String message, List<menuitem> menu)
     {
         Tab1 fragment = new Tab1();
         Bundle bundle = new Bundle(2);
         bundle.putString("mensaje", message);
+        bundle.putSerializable("menuitems", (Serializable) menu);
         fragment.setArguments(bundle);
         return fragment ;
     }
@@ -97,6 +110,7 @@ String texto;
     public void readBundle(Bundle bundle) {
         if (bundle != null) {
             texto = bundle.getString("mensaje");
+            menuitems1= (List<menuitem>)bundle.getSerializable("menuitems");
 
         }
     }
@@ -105,6 +119,8 @@ String texto;
 
 
 
-
-
 }
+
+
+
+

@@ -1,7 +1,9 @@
 package main.salonero1.clases;
 
-public class menuitem {
+import java.io.Serializable;
 
+public class menuitem implements Serializable {
+    private int index;
     private String Nombre;
      private int Precio;
     private int Cantidad;
@@ -13,12 +15,13 @@ public class menuitem {
 
 
 
-    public menuitem(String categoria1,String Nombre, int cantidad1, int precio1, String imagen){
+    public menuitem(int index, String categoria1,String Nombre, int cantidad1, int precio1, String imagen){
         this.Cantidad=cantidad1;
         this.Nombre=Nombre;
         this.Precio=precio1;
         this.categoria=categoria1;
         this.Imagen=imagen;
+        this.index=index;
     }
 
     public menuitem(){
@@ -29,6 +32,11 @@ public class menuitem {
         public void setnombremenuitem(String nombremenuitem) {
             this.Nombre = Nombre ;
         }
+
+    public void setnombreindex(int index) {
+        this.index=index ;
+    }
+
 
 
     public void setCantidad(int cantidad   ) {
@@ -81,6 +89,11 @@ public class menuitem {
         return Precio;
     }
 
+    public int getindex(){
+
+
+        return index;
+    }
 
 
 
