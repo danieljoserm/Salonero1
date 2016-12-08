@@ -46,6 +46,24 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
        viewHolder.nombrecuenta.setText(menuitems.get(i).getNombremenuitem());
         viewHolder.cantidad.setText(Integer.toString(menuitems.get(i).getCantidad()));
 
+        final int posicionj=i;
+
+        viewHolder.buttonx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(menuitems.get(posicionj).getCantidad()!=0)
+                {
+                    menuitems.get(posicionj).setCantidad(menuitems.get(posicionj).getCantidad() - 1);
+
+                }
+
+                notifyDataSetChanged();
+
+
+            }
+            });
+
 
     }
 
@@ -62,6 +80,7 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
 
         public TextView nombrecuenta;
         public TextView cantidad;
+        public Button buttonx;
 
 
 
@@ -70,6 +89,7 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
 
            nombrecuenta = (TextView) itemView.findViewById(R.id.textcuentaNombre);
             cantidad = (TextView) itemView.findViewById(R.id.Textcuentacantidad);
+            buttonx= (Button) itemView.findViewById(R.id.botoneliminarcuenta);
 
 
 

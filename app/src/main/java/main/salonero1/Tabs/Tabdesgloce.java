@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +42,8 @@ public class Tabdesgloce extends Fragment {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter Adapter;
+    TextView total;
+    int sumatotal;
 
 
     public Tabdesgloce( )
@@ -56,17 +59,22 @@ public class Tabdesgloce extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_desgloce,container,false);
 
+        total=(TextView) v.findViewById(R.id.totalapagarcuenta);
         readBundle(getArguments());
 
+        sumatotal=0;
        pedido= new ArrayList<menuitem>();
         for(int i=0;i<menuitems1.size();i++){
 
             if((menuitems1.get(i).getCantidad()!=0)){
              pedido.add(menuitems1.get(i));
+             sumatotal= (menuitems1.get(i).getPrecio()*menuitems1.get(i).getCantidad())+sumatotal;
 
             }
 
         }
+
+        total.setText("Total a pagar:"+ Integer.toString(sumatotal));
 
         if(pedido!=null) {
 
@@ -97,6 +105,26 @@ public class Tabdesgloce extends Fragment {
 
         return v;
     }
+
+
+
+    @Override
+    public void onViewCreated( final View view, final Bundle savedInstanceState )
+    {
+        super.onViewCreated( view, savedInstanceState );
+
+        view.findViewById( R.id.cuentacancelar ).setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick( final View v )
+                    {
+                        getFragmentManager().popBackStack();
+                    }
+                }
+        );
+    }
+
 
 
 
