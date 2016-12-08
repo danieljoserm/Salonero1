@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.Tabs.Tab1;
 import main.salonero1.Tabs.Tabdesgloce;
 import main.salonero1.Tabs.dialogcuenta;
 import main.salonero1.clases.categorias;
@@ -231,17 +232,21 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.carritocompra) {
 
+
+
             ft = getSupportFragmentManager().beginTransaction();
 // Replace the contents of the container with the new fragment
-            ft.replace(R.id.Fragmentlayout, new Tabdesgloce());
+            ft.replace(R.id.Fragmentlayout,  Tabdesgloce.newInstance(menu));
             ft.commit();
 
 
-            FragmentManager fm = getFragmentManager();
-            dialogcuenta dialogFragment = new dialogcuenta ();
-            dialogFragment.show(fm, "Sample Fragment");
 
-            Toast.makeText(MainActivity.this,"hola" ,Toast.LENGTH_SHORT).show();
+
+          //  FragmentManager fm = getFragmentManager();
+        //    dialogcuenta dialogFragment = new dialogcuenta ();
+          //  dialogFragment.show(fm, "Cuenta");
+
+
 
 
 

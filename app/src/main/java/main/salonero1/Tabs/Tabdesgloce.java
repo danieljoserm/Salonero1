@@ -23,19 +23,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.Adapters.adaptercuenta;
+import main.salonero1.Adapters.adaptermenuitem;
 import main.salonero1.R;
-
+import main.salonero1.clases.menuitem;
 
 
 public class Tabdesgloce extends Fragment {
 
+    List<menuitem> menuitems1;
+    List<menuitem> pedido;
+    RecyclerView mRecyclerView;
+    RecyclerView.LayoutManager mLayoutManager;
+    RecyclerView.Adapter Adapter;
 
-    public Tabdesgloce()
+
+    public Tabdesgloce( )
     {
+
     }
 
 
@@ -46,7 +56,42 @@ public class Tabdesgloce extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_desgloce,container,false);
 
+        readBundle(getArguments());
 
+       pedido= new ArrayList<menuitem>();
+        for(int i=0;i<menuitems1.size();i++){
+
+            if((menuitems1.get(i).getCantidad()!=0)){
+             pedido.add(menuitems1.get(i));
+
+            }
+
+        }
+
+        if(pedido!=null) {
+
+            mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerview_cuenta);
+            mRecyclerView.setHasFixedSize(true);
+
+            //   mLayoutManager = new LinearLayoutManager(rootView.getContext());
+            // mRecyclerView.setLayoutManager(mLayoutManager);
+
+            mLayoutManager = new GridLayoutManager(v.getContext(), 1);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            Adapter = new adaptercuenta(pedido);
+            //
+            mRecyclerView.setAdapter(Adapter);
+
+        }
+        else
+
+        {
+
+
+
+            Toast.makeText(getActivity(),"Su lista de pedidos se encuentra vacia" ,Toast.LENGTH_SHORT).show();
+        }
 
 
 
@@ -57,7 +102,23 @@ public class Tabdesgloce extends Fragment {
 
 
 
+    public static Tabdesgloce newInstance( List<menuitem> menu)
+    {
+        Tabdesgloce fragment = new Tabdesgloce();
+        Bundle bundle = new Bundle(2);
 
+        bundle.putSerializable("menuitems", (Serializable) menu);
+        fragment.setArguments(bundle);
+        return fragment ;
+    }
+
+    public void readBundle(Bundle bundle) {
+        if (bundle != null) {
+
+            menuitems1= (List<menuitem>)bundle.getSerializable("menuitems");
+
+        }
+    }
 
 
 
