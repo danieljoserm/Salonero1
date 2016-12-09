@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +47,8 @@ String texto;
     List<menuitem> menuitems1;
 
     List<menuitem> menucategoria;
+
+    Button button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,10 +92,10 @@ String texto;
 
 
 
-
-
         return rootView;
     }
+
+
 
 
 

@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
         Intent i= getIntent();
         Bundle b = i.getExtras();
 
@@ -233,10 +232,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.carritocompra) {
 
 
-
             ft = getSupportFragmentManager().beginTransaction();
 // Replace the contents of the container with the new fragment
-            ft.replace(R.id.Fragmentlayout,  Tabdesgloce.newInstance(menu));
+            ft.replace(R.id.Fragmentlayout, Tabdesgloce.newInstance(menu));
+
+
             ft.commit();
 
 

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import java.util.List;
 
 import main.salonero1.Adapters.adaptercuenta;
 import main.salonero1.Adapters.adaptermenuitem;
+import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 
@@ -70,6 +72,10 @@ public class Tabdesgloce extends Fragment {
              pedido.add(menuitems1.get(i));
              sumatotal= (menuitems1.get(i).getPrecio()*menuitems1.get(i).getCantidad())+sumatotal;
 
+
+
+
+
             }
 
         }
@@ -108,6 +114,8 @@ public class Tabdesgloce extends Fragment {
 
 
 
+
+
     @Override
     public void onViewCreated( final View view, final Bundle savedInstanceState )
     {
@@ -119,7 +127,8 @@ public class Tabdesgloce extends Fragment {
                     @Override
                     public void onClick( final View v )
                     {
-                        getFragmentManager().popBackStack();
+                        getActivity().getSupportFragmentManager().beginTransaction().remove(Tabdesgloce.this).commit();
+
                     }
                 }
         );
