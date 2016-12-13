@@ -101,6 +101,13 @@ String texto;
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+}
+
 
 
 
