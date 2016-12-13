@@ -1,10 +1,12 @@
 package main.salonero1.Tabs;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -127,7 +129,13 @@ public class Tabdesgloce extends Fragment {
                     @Override
                     public void onClick( final View v )
                     {
+
+
+
+
                         getActivity().getSupportFragmentManager().beginTransaction().remove(Tabdesgloce.this).commit();
+
+
 
                     }
                 }

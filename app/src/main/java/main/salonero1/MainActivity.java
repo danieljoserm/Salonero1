@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -381,7 +382,10 @@ public class MainActivity extends AppCompatActivity
                     adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles1,categoria.size(),menu);
 
                     // Assigning ViewPager View and setting the adapter
+
+
                     pager = (ViewPager) findViewById(R.id.pager);
+
                     pager.setAdapter(adapter);
 
 
@@ -394,9 +398,13 @@ public class MainActivity extends AppCompatActivity
                     tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                         @Override
                         public int getIndicatorColor(int position) {
-                            return getResources().getColor(R.color.colorAccent);
+                            return getResources().getColor(R.color.colorPrimary);
                         }
                     });
+
+
+
+                  //  tabs.setSelectedIndicatorColors(R.color.colorgris);
 
                     // Setting the ViewPager For the SlidingTabsLayout
                     tabs.setViewPager(pager);
