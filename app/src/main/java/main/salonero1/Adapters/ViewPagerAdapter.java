@@ -1,14 +1,17 @@
 package main.salonero1.Adapters;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.Menu;
+import android.view.View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
+import main.salonero1.Tabs.FragmentObserver;
 import main.salonero1.Tabs.Tab1;
 import main.salonero1.clases.menuitem;
 
@@ -21,6 +24,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
     List<menuitem> Menu;
+    private static HashMap<Integer, Tab1> mPageReferenceMap=new HashMap<Integer, Tab1>();
+    private Observable mObservers = new FragmentObserver();
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb,    List<menuitem> menu) {
@@ -39,16 +44,35 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     //This method return the fragment for the every position in the View Pager
     @Override
-    public Fragment getItem(int position) {
+    public Tab1 getItem( int position ) {
+
+        //mObservers.deleteObservers(); // Clear existing observers.
 
 
             Tab1 tab1 = Tab1.newInstance(Titles[position].toString(),Menu);
-            return tab1;
+
+        if(tab1 instanceof Observer)
+            mObservers.addObserver((Observer) tab1);
+        mPageReferenceMap.put(position, tab1);
+        return tab1;
 
 
     }
 
-    // This method return the titles for the Tabs in the Tab Strip
+    public Tab1 getFragment(int position) {
+        return mPageReferenceMap.get(position);
+    }
+
+
+    public void destroyItem(View container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        mPageReferenceMap.remove(position);
+    }
+
+
+
+
+
 
     @Override
     public CharSequence getPageTitle(int position) {
@@ -65,5 +89,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
+
+
+    }
+
+
+    public void updateFragments() {
+        mObservers.notifyObservers();
     }
 }

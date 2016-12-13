@@ -32,8 +32,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import main.salonero1.Adapters.adaptermenuitem;
+import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.Constantes;
@@ -43,17 +46,26 @@ import main.salonero1.webservice.VolleySingleton;
 /**
  * Created by Dani on 05/08/2015.
  */
-public class Tab1 extends Fragment {
+public class Tab1 extends Fragment implements Observer {
 String texto;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
-    RecyclerView.Adapter Adapter;
+   static adaptermenuitem Adapter;
 
     List<menuitem> menuitems1;
 
     List<menuitem> menucategoria;
 
     Button button;
+
+    @Override
+    public void update(Observable observable, Object data) {
+        View root = getView();
+     //   Adapter.notifyDataSetChanged();
+        // Update your views here.
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,6 +86,8 @@ String texto;
             }
 
        }
+
+
 
 
         mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerview_menuitem);
@@ -106,9 +120,18 @@ String texto;
         super.onResume();
 
 
+
+
+
 }
 
+    static public void refresh(){
+     Adapter.notifyDataSetChanged();
+    }
 
+    static public void destroy(){
+      Adapter.clearData();
+    }
 
 
 

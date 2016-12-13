@@ -1,5 +1,7 @@
 package main.salonero1;
 
+
+import android.support.v4.app.Fragment;
 import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,6 +23,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.Tabs.Tab1;
 import main.salonero1.Tabs.Tabdesgloce;
 import main.salonero1.clases.categorias;
 import main.salonero1.clases.menuitem;
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
     String Restnombre;
 
+    int cantidadtitulos;
 
     List<categorias> categoriaslista;
     categorias[] categorias;
@@ -105,6 +110,10 @@ public class MainActivity extends AppCompatActivity
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver1,
+              new IntentFilter("botonrevisar"));
+
+
 
 
         if(b!=null)
@@ -151,6 +160,9 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    private void updateFragments() {
+        adapter.updateFragments();
+    }
 
 
 
@@ -166,13 +178,70 @@ public class MainActivity extends AppCompatActivity
             menu.get(index).setCantidad(cantidad);
 
 
-            Toast.makeText(MainActivity.this,"probando"+"cantidad:"+cantidad+"posicion:"+index ,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,"probando"+"cantidad:"+cantidad+"posicion:"+index ,Toast.LENGTH_SHORT).show();
             //global = (List<Cupon>) i.getSerializableExtra("LIST");
 
 
 
         }
     };
+
+
+    public BroadcastReceiver mMessageReceiver1 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+       // Tab1 tab1=adapter.getFragment(pager.getCurrentItem());
+       // tab1.refresh();
+
+            updateFragments();
+
+
+
+           /* if(pager.getCurrentItem()!=0 && pager.getCurrentItem()!=cantidadtitulos ){
+                int hola=pager.getCurrentItem();
+                Tab1 tab1=adapter.getFragment(pager.getCurrentItem());
+                tab1.refresh();
+                Tab1 tab2=adapter.getFragment(pager.getCurrentItem()+1);
+                tab2.refresh();
+
+                Tab1 tab3=adapter.getFragment(pager.getCurrentItem()-1);
+                tab3.refresh();
+
+
+            }
+            else{
+
+                Tab1 tab1=adapter.getFragment(pager.getCurrentItem());
+                tab1.refresh();
+
+            }*/
+
+
+            //Toast.makeText(MainActivity.this,"probandoframentosifunciona" ,Toast.LENGTH_SHORT).show();
+            //global = (List<Cupon>) i.getSerializableExtra("LIST");
+
+
+
+        }
+    };
+
+
+  /*  public BroadcastReceiver mMessageReceiver1 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+
+
+            adapter.updateData(menu);
+
+            Toast.makeText(MainActivity.this,"sifuncionaelbotonrevisar",Toast.LENGTH_SHORT).show();
+            //global = (List<Cupon>) i.getSerializableExtra("LIST");
+
+
+
+        }
+    };*/
 
     @Override
     public void onBackPressed() {
@@ -381,12 +450,37 @@ public class MainActivity extends AppCompatActivity
 
                     adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles1,categoria.size(),menu);
 
+                    cantidadtitulos=categoria.size();
                     // Assigning ViewPager View and setting the adapter
 
 
                     pager = (ViewPager) findViewById(R.id.pager);
 
                     pager.setAdapter(adapter);
+
+
+                    pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                        }
+
+                        @Override
+                        public void onPageSelected(int position) {
+                            //Toast.makeText( getBaseContext(),"hola"+ Integer.toString(position),
+                              //      Toast.LENGTH_LONG).show();
+
+
+
+
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
+
 
 
                     // Assiging the Sliding Tab Layout View
@@ -408,6 +502,10 @@ public class MainActivity extends AppCompatActivity
 
                     // Setting the ViewPager For the SlidingTabsLayout
                     tabs.setViewPager(pager);
+
+
+                    // probando con el page listener
+
 
 
 

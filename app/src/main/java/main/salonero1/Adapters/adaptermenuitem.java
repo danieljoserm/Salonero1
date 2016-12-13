@@ -1,7 +1,9 @@
 package main.salonero1.Adapters;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.io.Serializable;
 import java.util.List;
 
+import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.VolleySingleton;
@@ -45,7 +48,11 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
                 .inflate(R.layout.menuitem_row, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
+
     }
+
+
+
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
@@ -131,12 +138,27 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
     }
+    public void clearData() {
+        int size = this.menuitems.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                this.menuitems.remove(0);
+            }
+
+            this.notifyItemRangeRemoved(0, size);
+        }
+    }
+
 
     @Override
     public int getItemCount() {
 
         return menuitems.size();
     }
+
+
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

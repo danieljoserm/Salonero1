@@ -130,7 +130,9 @@ public class Tabdesgloce extends Fragment {
                     public void onClick( final View v )
                     {
 
+                       Intent intent = new Intent("botonrevisar");
 
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
 
 
                         getActivity().getSupportFragmentManager().beginTransaction().remove(Tabdesgloce.this).commit();
