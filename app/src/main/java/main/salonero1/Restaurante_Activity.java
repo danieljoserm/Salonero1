@@ -159,7 +159,7 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
                     mLayoutManager = new GridLayoutManager(this, 2);
                     mRecyclerView.setLayoutManager(mLayoutManager);
 
-                    mAdapter = new adapterestitem(Restaurante1);
+                    mAdapter = new adapterestitem(Restaurante1,getBaseContext());
                     //
                     mRecyclerView.setAdapter(mAdapter);
                     mAdapter.setClickListener(this);

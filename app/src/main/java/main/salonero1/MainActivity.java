@@ -1,7 +1,5 @@
 package main.salonero1;
 
-import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
 import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -24,8 +21,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,9 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import main.salonero1.Tabs.Tab1;
 import main.salonero1.Tabs.Tabdesgloce;
-import main.salonero1.Tabs.dialogcuenta;
 import main.salonero1.clases.categorias;
 import main.salonero1.clases.menuitem;
 import main.salonero1.slidingconfig.SlidingTabLayout;

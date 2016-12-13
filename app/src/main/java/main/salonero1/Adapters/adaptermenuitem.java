@@ -11,11 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.io.Serializable;
 import java.util.List;
 
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
+import main.salonero1.webservice.VolleySingleton;
 
 
 public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHolder>  {
@@ -23,6 +27,9 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     List<menuitem> menuitems;
     List<menuitem> menucompleto;
     Context context;
+
+    private ImageLoader imageLoader;
+
 
     public adaptermenuitem(List<menuitem> menuitemscategoria,Context context1,List<menuitem> menucompleto1) {
         super();
@@ -48,9 +55,22 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
        viewHolder.cantidad.setText("Cantidad:"+ Integer.toString(menuitem.getCantidad()));
+        imageLoader = VolleySingleton.getInstance(context).getImageLoader();
+        // imageLoader.get(superHero.getImageUrl(), ImageLoader.getImageListener(holder.imageView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+        imageLoader.get(menuitem.getImagen(), ImageLoader.getImageListener(viewHolder.imagenPost,
+                R.drawable.loading, android.R.drawable.ic_dialog_alert));
+
+        viewHolder.imagenPost.setImageUrl(menuitem.getImagen(), imageLoader);
         final int posicionj=i;
 
 
+
+
+
+
+
+
+        //http://epmghispanic.media.clients.ellingtoncms.com/img/photos/2014/09/24/pa_patacones_t670x470.jpg?23a6cf1936a4889561e6226c97c290c4239edcb5
 
         viewHolder.buttonmas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +146,9 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         public TextView precio;
         public Button buttonmas;
         public Button buttonmenos;
+        public NetworkImageView imagenPost;
+
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -135,6 +158,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
            precio=(TextView) itemView.findViewById(R.id.Preciomenuitem);
             buttonmas = (Button) itemView.findViewById(R.id.buton_mas_menuitem);
             buttonmenos = (Button) itemView.findViewById(R.id.buton_menos_menuitem);
+            imagenPost = (NetworkImageView) itemView.findViewById(R.id.imagenmenuitem);
 
 
         }
