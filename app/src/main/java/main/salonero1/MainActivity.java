@@ -190,58 +190,16 @@ public class MainActivity extends AppCompatActivity
     public BroadcastReceiver mMessageReceiver1 = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-       // Tab1 tab1=adapter.getFragment(pager.getCurrentItem());
-       // tab1.refresh();
-
-            updateFragments();
 
 
-
-           /* if(pager.getCurrentItem()!=0 && pager.getCurrentItem()!=cantidadtitulos ){
-                int hola=pager.getCurrentItem();
-                Tab1 tab1=adapter.getFragment(pager.getCurrentItem());
-                tab1.refresh();
-                Tab1 tab2=adapter.getFragment(pager.getCurrentItem()+1);
-                tab2.refresh();
-
-                Tab1 tab3=adapter.getFragment(pager.getCurrentItem()-1);
-                tab3.refresh();
-
-
-            }
-            else{
-
-                Tab1 tab1=adapter.getFragment(pager.getCurrentItem());
-                tab1.refresh();
-
-            }*/
-
-
-            //Toast.makeText(MainActivity.this,"probandoframentosifunciona" ,Toast.LENGTH_SHORT).show();
-            //global = (List<Cupon>) i.getSerializableExtra("LIST");
-
+            pager.getAdapter().notifyDataSetChanged();
 
 
         }
     };
 
 
-  /*  public BroadcastReceiver mMessageReceiver1 = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
 
-
-            adapter.updateData(menu);
-
-            Toast.makeText(MainActivity.this,"sifuncionaelbotonrevisar",Toast.LENGTH_SHORT).show();
-            //global = (List<Cupon>) i.getSerializableExtra("LIST");
-
-
-
-        }
-    };*/
 
     @Override
     public void onBackPressed() {
@@ -296,6 +254,7 @@ public class MainActivity extends AppCompatActivity
 
 
             ft = getSupportFragmentManager().beginTransaction();
+
 // Replace the contents of the container with the new fragment
             ft.replace(R.id.Fragmentlayout, Tabdesgloce.newInstance(menu));
 
