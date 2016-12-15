@@ -56,11 +56,11 @@ public class adapterestitem extends RecyclerView.Adapter<adapterestitem.ViewHold
 
         imageLoader = VolleySingleton.getInstance(context).getImageLoader();
        // imageLoader.get(superHero.getImageUrl(), ImageLoader.getImageListener(holder.imageView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
-        imageLoader.get("http://www.fancyicons.com/free-icons/108/point-of-interest/png/256/restaurant_blue_256.png", ImageLoader.getImageListener(viewHolder.imagenPost,
-                R.drawable.ic_hamburger, android.R.drawable.ic_dialog_alert));
+        imageLoader.get(Restaurante2.getImagen(), ImageLoader.getImageListener(viewHolder.imagenPost,
+                R.drawable.loading, android.R.drawable.ic_dialog_alert));
 
 
-                viewHolder.imagenPost.setImageUrl("http://www.fancyicons.com/free-icons/108/point-of-interest/png/256/restaurant_blue_256.png", imageLoader);
+                viewHolder.imagenPost.setImageUrl(Restaurante2.getImagen(), imageLoader);
 
 
 

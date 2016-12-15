@@ -1,6 +1,8 @@
 package main.salonero1;
 
 
+import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
@@ -40,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.Tabs.Dialognummesa;
+import main.salonero1.Tabs.FragmentCargando;
 import main.salonero1.Tabs.Tab1;
 import main.salonero1.Tabs.Tabdesgloce;
 import main.salonero1.clases.categorias;
@@ -75,11 +79,16 @@ public class MainActivity extends AppCompatActivity
     //botones
 
     FragmentTransaction ft;
+    FragmentCargando fragmentcargando;
 
 
 
+    private void showdialogmesa() {
+        FragmentManager fm = getFragmentManager();
+        Dialognummesa dialognummesa = new Dialognummesa();
+        dialognummesa.show(fm,"ingrese el numero de mesa");
 
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +108,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        fragmentcargando= new FragmentCargando();
 
+        //showdialogmesa();
         Intent i= getIntent();
         Bundle b = i.getExtras();
-
+        //showdialogmesa();
 
         menu=new ArrayList<menuitem>();
 
@@ -306,7 +317,16 @@ public class MainActivity extends AppCompatActivity
 
 
     public void cargarDatos() {
-        // Petición GET
+
+        ft = getSupportFragmentManager().beginTransaction();
+
+// Replace the contents of the container with the new fragment
+        ft.replace(R.id.Fragmentlayout, fragmentcargando);
+
+
+        ft.commit();
+
+
         VolleySingleton.getInstance(this).
                 addToRequestQueue(
                         new JsonObjectRequest(
@@ -326,6 +346,7 @@ public class MainActivity extends AppCompatActivity
                                     public void onErrorResponse(VolleyError error) {
                                         Log.d("", "Error Volley: " + error.toString());
 
+                                        getSupportFragmentManager().beginTransaction().remove(fragmentcargando).commit();
 
                                         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                                         alertDialog.setTitle("Aviso");
@@ -418,27 +439,6 @@ public class MainActivity extends AppCompatActivity
                     pager.setAdapter(adapter);
 
 
-                    pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                        @Override
-                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                        }
-
-                        @Override
-                        public void onPageSelected(int position) {
-                            //Toast.makeText( getBaseContext(),"hola"+ Integer.toString(position),
-                              //      Toast.LENGTH_LONG).show();
-
-
-
-
-                        }
-
-                        @Override
-                        public void onPageScrollStateChanged(int state) {
-
-                        }
-                    });
 
 
 
@@ -462,7 +462,7 @@ public class MainActivity extends AppCompatActivity
                     // Setting the ViewPager For the SlidingTabsLayout
                     tabs.setViewPager(pager);
 
-
+                    getSupportFragmentManager().beginTransaction().remove(fragmentcargando).commit();
                     // probando con el page listener
 
 
