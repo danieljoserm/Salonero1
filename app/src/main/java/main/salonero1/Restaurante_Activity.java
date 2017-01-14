@@ -19,6 +19,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -88,6 +90,47 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
 
 
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.restactivity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.searchrest) {
+
+
+
+
+
+
+            //  FragmentManager fm = getFragmentManager();
+            //    dialogcuenta dialogFragment = new dialogcuenta ();
+            //  dialogFragment.show(fm, "Cuenta");
+
+
+
+
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -373,6 +416,7 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
                 i.putExtra("Nombreresta",Restaurante1.get(posicionresta).getNombre());
                 startActivity(i);
 
+
             } else {
 
 
@@ -390,7 +434,9 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ver el menu(no pedidos)",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                Intent i = new Intent(Restaurante_Activity.this, MainActivity.class);
+                                i.putExtra("Nombreresta",Restaurante1.get(posicionresta).getNombre());
+                                startActivity(i);
 
                             }
                         });

@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         fragmentcargando= new FragmentCargando();
 
-        //showdialogmesa();
+
         Intent i= getIntent();
         Bundle b = i.getExtras();
         //showdialogmesa();
@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity
             pager.getAdapter().notifyDataSetChanged();
 
 
+
         }
     };
 
@@ -220,6 +221,8 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+        this.finish();
     }
 
     @Override
@@ -464,7 +467,7 @@ public class MainActivity extends AppCompatActivity
 
                     getSupportFragmentManager().beginTransaction().remove(fragmentcargando).commit();
                     // probando con el page listener
-
+                   // showdialogmesa();
 
 
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/ver"
+
+
+
+        android:title="@+id/searchrest"
+        android:icon="@drawable/ic_cerca"
+        app:showAsAction="always"
+        />
+
+
+    <item
+    android:id="@+id/searchrest"
+
+
+
+    android:title="@+id/searchrest"
+
+    app:showAsAction="always"
+    android:icon="@drawable/ic_search"/>
+
+
+
+
+</menu>

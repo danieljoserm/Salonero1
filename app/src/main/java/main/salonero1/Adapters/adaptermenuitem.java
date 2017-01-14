@@ -9,7 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     List<menuitem> menuitems;
     List<menuitem> menucompleto;
     Context context;
+
+    private int lastPosition = -1;
 
     private ImageLoader imageLoader;
 
@@ -69,6 +74,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
         viewHolder.imagenPost.setImageUrl(menuitem.getImagen(), imageLoader);
         final int posicionj=i;
+        setAnimation(viewHolder.container, i);
 
 
 
@@ -169,6 +175,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         public Button buttonmas;
         public Button buttonmenos;
         public NetworkImageView imagenPost;
+        FrameLayout container;
 
 
 
@@ -181,8 +188,19 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             buttonmas = (Button) itemView.findViewById(R.id.buton_mas_menuitem);
             buttonmenos = (Button) itemView.findViewById(R.id.buton_menos_menuitem);
             imagenPost = (NetworkImageView) itemView.findViewById(R.id.imagenmenuitem);
+            container= (FrameLayout) itemView.findViewById(R.id.item_menu_container);
 
+        }
+    }
 
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 }
