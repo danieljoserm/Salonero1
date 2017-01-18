@@ -23,7 +23,11 @@ public class Constantes {
     private static final String IP = "52.38.158.11";
     /**
      * URLs del Web Service
+
      */
+    public static final String registrarloguear = " http://52.38.158.11/i_wishdata/RegisterDevice.php";
+
+   // public static final String registrarloguear = "http://" + IP + PUERTO_HOST + "/i_wishdata/RegisterDevice.php";
     public static final String GETmenu = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_menu.php";
     public static final String GETitems = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_";
     public static final String GETrestaurante = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_restaurante.php";

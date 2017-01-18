@@ -3,9 +3,14 @@ package main.salonero1;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -18,7 +23,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,9 +35,24 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import main.salonero1.pushnotifications.SharedPrefManager;
+import main.salonero1.webservice.Constantes;
+import main.salonero1.webservice.VolleySingleton;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -61,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private static final String TAG = LoginActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +91,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -86,13 +109,62 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+            //    attemptLogin();
+
+
+
+
+              final  String token = SharedPrefManager.getInstance(LoginActivity.this).getDeviceToken();
+
+                //if token is not null
+
+
+               String email=mEmailView.getText().toString();
+               String contrasena=mPasswordView.getText().toString();
+
+                int numerocel= (int)(Math.random()*(99999999-10000000+1)+10000000);
+
+
+
+                HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+               map.put("email", email);
+                map.put("token",token );
+                map.put("numerocel", Integer.toString(numerocel));
+                map.put("contrasena", contrasena);
+
+
+                // Crear nuevo objeto Json basado en el mapa
+                JSONObject jobject = new JSONObject(map);
+
+                registrarologuear(jobject);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+
+
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -290,10 +362,77 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
+
+
+    public void registrarologuear (JSONObject jobject) {
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.registrarloguear,
+                        jobject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                procesarRespuesta(response);
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+
+                            }
+                        }
+
+                )
+
+
+        );
+
+    }
+
+
+    private void procesarRespuesta(JSONObject response) {
+
+        try {
+            // Obtener estado
+
+            String estado = response.getString("ingresar");
+            // Obtener mensaje
+            String mensaje = response.getString("message");
+
+            if(estado.equals("true")){
+
+
+                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
+                startActivity(intent);
+
+
+            }
+
+            else{
+                Toast.makeText(LoginActivity.this,"contraseña incorrecta",Toast.LENGTH_LONG).show();
+
+
+
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
