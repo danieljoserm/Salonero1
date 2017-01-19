@@ -22,18 +22,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import main.salonero1.Adapters.adaptercuenta;
 import main.salonero1.Adapters.adaptermenuitem;
+import main.salonero1.LoginActivity;
 import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
@@ -50,10 +54,14 @@ public class Tabdesgloce extends Fragment {
     int sumatotal;
 
 
+    private Gson gson = new Gson();
+
     public Tabdesgloce( )
     {
 
     }
+
+
 
 
 
@@ -79,6 +87,52 @@ public class Tabdesgloce extends Fragment {
 
 
             }
+
+
+            final Button button = (Button) v.findViewById(R.id.cuentapedir);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+
+
+                    Toast.makeText(getContext(),"pidiendo",Toast.LENGTH_LONG).show();
+
+                    String json = new Gson().toJson(pedido);
+
+
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = new JSONArray(json);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    JSONObject obj = new JSONObject();
+
+                    try {
+
+
+
+                    obj.put("pedido",jsonArray);
+
+
+                } catch (Throwable t) {
+                    Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
+                }
+
+
+                    System.out.println(json);
+
+                    // Now convert the JSON string back to your java object
+                  //  Type type = new TypeToken<List<DataObject>>(){}.getType();
+                   // List<DataObject> inpList = new Gson().fromJson(json, type);
+                    //for (int i=0;i<inpList.size();i++) {
+                      //  DataObject x = inpList.get(i);
+                       // System.out.println(x);
+                   // }
+
+                }
+            });
 
         }
 
