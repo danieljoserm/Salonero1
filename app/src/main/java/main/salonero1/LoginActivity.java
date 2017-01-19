@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -54,6 +56,19 @@ import main.salonero1.pushnotifications.SharedPrefManager;
 import main.salonero1.webservice.Constantes;
 import main.salonero1.webservice.VolleySingleton;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.view.menu.ActionMenuItemView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -65,6 +80,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+
+    private int READ_PHONE_STATE_CODE = 23;
+    boolean permisoentrar=false;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -84,6 +102,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private static final String TAG = LoginActivity.class.getSimpleName();
+
+    String  mPhoneNumber;
+    //Permiso de acceder al numero telefonico
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,13 +116,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+        if(isReadStorageAllowed()){
+            //If permission is already having then showing the toast
+
+            //Existing the method with return
+
+        }
+
+        else{
+
+            requestStoragePermission();
+
+        }
+
+
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    //attemptLogin();
                     return true;
                 }
                 return false;
@@ -109,7 +148,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-            //    attemptLogin();
+                permisoentrar=true;
+                attemptLogin();
 
 
 
@@ -122,6 +162,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                String email=mEmailView.getText().toString();
                String contrasena=mPasswordView.getText().toString();
 
+                TelephonyManager tMgr =(TelephonyManager)getApplicationContext().getSystemService(getApplicationContext().TELEPHONY_SERVICE);
+                mPhoneNumber = tMgr.getLine1Number().toString();
+
+
                 int numerocel= (int)(Math.random()*(99999999-10000000+1)+10000000);
 
 
@@ -130,16 +174,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                map.put("email", email);
                 map.put("token",token );
-                map.put("numerocel", Integer.toString(numerocel));
+                map.put("numerocel", mPhoneNumber);
                 map.put("contrasena", contrasena);
+
 
 
                 // Crear nuevo objeto Json basado en el mapa
                 JSONObject jobject = new JSONObject(map);
 
-                registrarologuear(jobject);
+                if(permisoentrar=true) {
 
 
+                    registrarologuear(jobject);
+
+                }
 
 
 
@@ -236,6 +284,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
+            permisoentrar=false;
+
         }
 
         // Check for a valid email address.
@@ -243,10 +293,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
+            permisoentrar=false;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+            permisoentrar=false;
         }
 
         if (cancel) {
@@ -363,7 +415,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-
+//Comunicacion con el server
     public void registrarologuear (JSONObject jobject) {
 
         // Actualizar datos en el servidor
@@ -405,7 +457,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Obtener mensaje
             String mensaje = response.getString("message");
 
-            if(estado.equals("true")){
+
+            if(estado.equals("correcto")){
 
 
                 Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
@@ -414,10 +467,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }
 
+            else if(estado.equals("registrar")){
+                Toast.makeText(LoginActivity.this,"Usuario registrado",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
+                startActivity(intent);
+
+
+
+            }
             else{
+
                 Toast.makeText(LoginActivity.this,"contraseña incorrecta",Toast.LENGTH_LONG).show();
-
-
 
             }
 
@@ -428,6 +488,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
     }
+
+
+
+//permiso de numero de telefono
+private boolean isReadStorageAllowed() {
+    //Getting the permission status
+    int result = ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE);
+
+    //If permission is granted returning true
+    if (result == PackageManager.PERMISSION_GRANTED)
+        return true;
+
+    //If permission is not granted returning false
+    return false;
+}
+
+
+    private void requestStoragePermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_PHONE_STATE)){
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},READ_PHONE_STATE_CODE);
+    }
+
 
 
 
@@ -471,12 +560,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
 
+
+           /*
             if (success) {
-                finish();
+               // finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
-            }
+            }*/
         }
 
         @Override
