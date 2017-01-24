@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<main.salonero1.ExpandableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/expandable_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="1dp"
-   >
+    android:layout_gravity="center"
+    app:expWithParentScroll="true">
 
 
     <FrameLayout
         android:id="@+id/item_menu_container"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -37,6 +37,7 @@
 
 
         <LinearLayout
+            android:background="@drawable/customborder"
             android:id="@+id/top_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,8 +60,9 @@
 
             <Button style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="51dp"
-                android:layout_height="100dp"
+                android:layout_height="85dp"
                 android:text="-"
+                android:gravity="center"
                 android:textSize="25dp"
                 android:id="@+id/buton_menos_menuitem"
 
@@ -72,39 +74,54 @@
             android:orientation="vertical"
             android:layout_width="127dp"
             android:layout_height="match_parent"
-                android:layout_weight="0.56">
+                android:layout_weight="0.56"
+                android:weightSum="1">
 
 
-            <TextView
-                android:textSize="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:text="Nombre"
-                android:id="@+id/Nombremenuitem" />
+                <TextView
 
-            <TextView
-                android:textSize="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:text="Precio"
-                android:id="@+id/Preciomenuitem" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:text="Nombre"
+                    android:id="@+id/Nombremenuitem"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
-            <TextView
-                android:textSize="16dp"
-                android:text="Cantidad"
-                android:layout_width="wrap_content"
+                <TextView
+
+                    android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/Cantidadmenuitem" />
+                android:text="Precio"
+                android:id="@+id/Preciomenuitem"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:elevation="0dp"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:keepScreenOn="false"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="7dp"
+                    android:layout_weight="0.91" />
+
+                <TextView
+                    android:drawableRight="@drawable/arrow_down1"
+                    android:drawablePadding="30dp"
+                    android:gravity="center"
+
+                    android:text="Cantidad"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/Cantidadmenuitem"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:layout_height="20dp" />
 
 
-
-        </LinearLayout>
+            </LinearLayout>
 
             <Button  style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="51dp"
-                android:layout_height="100dp"
+                android:layout_height="85dp"
                 android:text="+"
                 android:textSize="25dp"
+                android:gravity="center"
 
                 android:id="@+id/buton_mas_menuitem" />
 
@@ -132,4 +149,30 @@
 
     </FrameLayout>
 
-</LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/customborder2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <Button
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3" />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="holadfdsfadsfdxv sdfdsfdsfxvzxcvcxvcxvdsafwefsdfdsfdf"
+        android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+
+</main.salonero1.ExpandableLayout>
+

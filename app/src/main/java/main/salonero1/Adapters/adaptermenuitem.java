@@ -20,8 +20,10 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 
+import main.salonero1.ExpandableLayout;
 import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
@@ -33,7 +35,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     List<menuitem> menuitems;
     List<menuitem> menucompleto;
     Context context;
-
+    private HashSet<Integer> expandedPositionSet;
     private int lastPosition = -1;
 
     private ImageLoader imageLoader;
@@ -41,7 +43,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
     public adaptermenuitem(List<menuitem> menuitemscategoria,Context context1,List<menuitem> menucompleto1) {
         super();
-
+        expandedPositionSet = new HashSet<>();
         menuitems=menuitemscategoria;
         context=context1;
         menucompleto=menucompleto1;
@@ -176,12 +178,14 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         public Button buttonmenos;
         public NetworkImageView imagenPost;
         FrameLayout container;
-
+        private ExpandableLayout expandableLayout;
+        private Button showInfo;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            expandableLayout = (ExpandableLayout) itemView.findViewById(R.id.expandable_layout);
            nombremenuitem12 = (TextView) itemView.findViewById(R.id.Nombremenuitem);
            cantidad = (TextView) itemView.findViewById(R.id.Cantidadmenuitem);
            precio=(TextView) itemView.findViewById(R.id.Preciomenuitem);
@@ -189,9 +193,52 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             buttonmenos = (Button) itemView.findViewById(R.id.buton_menos_menuitem);
             imagenPost = (NetworkImageView) itemView.findViewById(R.id.imagenmenuitem);
             container= (FrameLayout) itemView.findViewById(R.id.item_menu_container);
+          //showInfo = (Button) itemView.findViewById(R.id.showInfo);
+        }
+
+
+        private void updateItem(final int position) {
+            expandableLayout.setOnExpandListener(new ExpandableLayout.OnExpandListener() {
+                @Override
+                public void onExpand(boolean expanded) {
+                    registerExpand(position,cantidad);
+                }
+            });
+            expandableLayout.setExpand(expandedPositionSet.contains(position));
 
         }
     }
+
+
+
+
+    private void registerExpand(int position, TextView textView) {
+        if (expandedPositionSet.contains(position)) {
+            removeExpand(position);
+
+            textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down1, 0);
+           // textView.setText("Show description");
+           // Toast.makeText(context, "Position: " + position + " collapsed!", Toast.LENGTH_SHORT).show();
+        } else {
+            addExpand(position);
+            textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up1, 0);
+           // textView.setText("Hide description");
+         //   Toast.makeText(context, "Position: " + position + " expanded!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void removeExpand(int position) {
+        expandedPositionSet.remove(position);
+    }
+
+    private void addExpand(int position) {
+        expandedPositionSet.add(position);
+    }
+
+
+
+
+
 
     private void setAnimation(View viewToAnimate, int position)
     {
