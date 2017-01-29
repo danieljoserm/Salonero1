@@ -1,9 +1,8 @@
 package main.salonero1.Adapters;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,17 +13,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 
 import main.salonero1.ExpandableLayout;
-import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.VolleySingleton;
@@ -37,7 +33,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     Context context;
     private HashSet<Integer> expandedPositionSet;
     private int lastPosition = -1;
-
+    private Bitmap bitmap;
     private ImageLoader imageLoader;
 
 
@@ -66,15 +62,23 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         final menuitem menuitem = menuitems.get(i);
 
 
+        VolleySingleton volley= new VolleySingleton(context);
+
+
         viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
        viewHolder.cantidad.setText("Cantidad:"+ Integer.toString(menuitem.getCantidad()));
-        imageLoader = VolleySingleton.getInstance(context).getImageLoader();
+        imageLoader = volley.getImageLoader();
+
+      //  imageLoader = VolleySingleton.getInstance(context).getImageLoader();
         // imageLoader.get(superHero.getImageUrl(), ImageLoader.getImageListener(holder.imageView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
         imageLoader.get(menuitem.getImagen(), ImageLoader.getImageListener(viewHolder.imagenPost,
                 R.drawable.loading, android.R.drawable.ic_dialog_alert));
 
+
+
         viewHolder.imagenPost.setImageUrl(menuitem.getImagen(), imageLoader);
+
         final int posicionj=i;
         setAnimation(viewHolder.container, i);
 

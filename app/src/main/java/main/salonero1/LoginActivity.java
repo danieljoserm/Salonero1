@@ -3,16 +3,20 @@ package main.salonero1;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -36,6 +40,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,23 +55,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import main.salonero1.pushnotifications.SharedPrefManager;
 import main.salonero1.webservice.Constantes;
 import main.salonero1.webservice.VolleySingleton;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.view.menu.ActionMenuItemView;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -107,6 +101,48 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     //Permiso de acceder al numero telefonico
 
 
+    public Bitmap blurBitmap(Bitmap bitmap){
+
+//Let’s create an empty bitmap with the same size of the bitmap we want to blur
+        Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(),   bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+
+//Instantiate a new Renderscript
+        RenderScript rs = RenderScript.create(getApplicationContext());
+
+
+//Create an Intrinsic Blur Script using the Renderscript
+        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+
+
+//Create the in/out Allocations with the Renderscript and the in/out bitmaps
+        Allocation allIn = Allocation.createFromBitmap(rs, bitmap);
+        Allocation allOut = Allocation.createFromBitmap(rs, outBitmap);
+
+
+//Set the radius of the blur
+        blurScript.setRadius(25.f);
+
+
+//Perform the Renderscript
+        blurScript.setInput(allIn);
+        blurScript.forEach(allOut);
+
+
+//Copy the final bitmap created by the out Allocation to the outBitmap
+        allOut.copyTo(outBitmap);
+
+
+//recycle the original bitmap
+        bitmap.recycle();
+
+
+//After finishing everything, we destroy the Renderscript.
+        rs.destroy();
+        return outBitmap;
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +151,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+
+
+
+
+
+
+
+
+
+        LinearLayout rl=(LinearLayout) findViewById(R.id.contentlogin);
+
+
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+
+
+
+
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.camaronesfondo,options);
+
+        Bitmap blurredBitmap = blurBitmap(bitmap);
+
+        Drawable dr = new BitmapDrawable(blurredBitmap);
+//dr.setColorFilter( Color.RED, PorterDuff.Mode.MULTIPLY);
+        rl.setBackgroundDrawable(dr);
 
         if(isReadStorageAllowed()){
             //If permission is already having then showing the toast

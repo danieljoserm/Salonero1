@@ -1,16 +1,22 @@
 package main.salonero1;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
+import android.support.design.widget.CoordinatorLayout;
 import  android.support.v4.app.FragmentTransaction;
 
 import android.support.v7.app.AlertDialog;
@@ -24,12 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import android.app.DialogFragment;
-import android.app.ProgressDialog;
-
-import android.content.DialogInterface;
-import  android.support.v4.app.FragmentTransaction;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -42,17 +42,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import main.salonero1.Adapters.adapterestitem;
-import main.salonero1.Adapters.adaptermenuitem;
-import main.salonero1.Tabs.Dialognummesa;
 import main.salonero1.Tabs.FragmentCargando;
-import main.salonero1.Tabs.Tabdesgloce;
 import main.salonero1.clases.Restau;
-import main.salonero1.clases.categorias;
-import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.Constantes;
 import main.salonero1.webservice.VolleySingleton;
 
@@ -76,6 +70,48 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
     private WIFIcomprobacion WIFIthread = null;
 
 
+    public Bitmap blurBitmap(Bitmap bitmap){
+
+//Let’s create an empty bitmap with the same size of the bitmap we want to blur
+        Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(),   bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+
+//Instantiate a new Renderscript
+        RenderScript rs = RenderScript.create(getApplicationContext());
+
+
+//Create an Intrinsic Blur Script using the Renderscript
+        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+
+
+//Create the in/out Allocations with the Renderscript and the in/out bitmaps
+        Allocation allIn = Allocation.createFromBitmap(rs, bitmap);
+        Allocation allOut = Allocation.createFromBitmap(rs, outBitmap);
+
+
+//Set the radius of the blur
+        blurScript.setRadius(25.f);
+
+
+//Perform the Renderscript
+        blurScript.setInput(allIn);
+        blurScript.forEach(allOut);
+
+
+//Copy the final bitmap created by the out Allocation to the outBitmap
+        allOut.copyTo(outBitmap);
+
+
+//recycle the original bitmap
+        bitmap.recycle();
+
+
+//After finishing everything, we destroy the Renderscript.
+        rs.destroy();
+        return outBitmap;
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +119,27 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Salonero");
+
+
+        CoordinatorLayout rl=(CoordinatorLayout) findViewById(R.id.contentrestau);
+
+
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+
+
+
+
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rest,options);
+
+        Bitmap blurredBitmap = blurBitmap(bitmap);
+
+        Drawable dr = new BitmapDrawable(blurredBitmap);
+//dr.setColorFilter( Color.RED, PorterDuff.Mode.MULTIPLY);
+        rl.setBackgroundDrawable(dr);
+
+
 
         fragmentcargando= new FragmentCargando();
 

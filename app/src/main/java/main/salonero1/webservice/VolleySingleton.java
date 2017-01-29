@@ -23,13 +23,13 @@ public final class VolleySingleton {
     private RequestQueue requestQueue;
     private static Context context;
     private ImageLoader imageLoader;
+    private Bitmap imagenimageloader;
 
 
 
 
 
-
-    private VolleySingleton(Context context) {
+    public VolleySingleton(Context context) {
         VolleySingleton.context = context;
         requestQueue = getRequestQueue();
 
@@ -40,6 +40,7 @@ public final class VolleySingleton {
 
                     @Override
                     public Bitmap getBitmap(String url) {
+                        imagenimageloader= cache.get(url);
                         return cache.get(url);
                     }
 
@@ -90,7 +91,11 @@ public final class VolleySingleton {
 
 
 
+    public Bitmap devolverimagen(){
 
+
+       return imagenimageloader;
+    }
 
 
     public ImageLoader getImageLoader() {

@@ -18,7 +18,6 @@ import java.util.List;
 import main.salonero1.ItemClickListener;
 import main.salonero1.R;
 import main.salonero1.clases.Restau;
-import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.VolleySingleton;
 
 /**

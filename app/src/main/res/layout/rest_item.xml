@@ -21,7 +21,7 @@
 
     <android.support.v7.widget.CardView
         android:windowIsTranslucent="true"
-        android:windowBackground="@android:color/transparent"
+
         android:fadingEdge="vertical"
 
         card_view:cardUseCompatPadding="true"

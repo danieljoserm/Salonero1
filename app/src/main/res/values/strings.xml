@@ -8,6 +8,10 @@
     <string name="title_activity_restaurante_">Restaurante_Activity</string>
     <string name="title_activity_login">Sign in</string>
 
+
+    <string name="forgetpass"><u>olvidaste la contrasena</u>.</string>
+
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -21,3 +25,5 @@
         completions."
     </string>
 </resources>
+
+

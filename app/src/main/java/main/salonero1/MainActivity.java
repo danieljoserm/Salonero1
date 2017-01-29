@@ -2,8 +2,6 @@ package main.salonero1;
 
 
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
-import android.support.v4.app.Fragment;
 import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +23,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -44,7 +41,6 @@ import java.util.List;
 
 import main.salonero1.Tabs.Dialognummesa;
 import main.salonero1.Tabs.FragmentCargando;
-import main.salonero1.Tabs.Tab1;
 import main.salonero1.Tabs.Tabdesgloce;
 import main.salonero1.clases.categorias;
 import main.salonero1.clases.menuitem;
