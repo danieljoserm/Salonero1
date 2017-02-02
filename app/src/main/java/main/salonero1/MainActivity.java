@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity
                     tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                         @Override
                         public int getIndicatorColor(int position) {
-                            return getResources().getColor(R.color.blanco);
+                            return getResources().getColor(R.color.cardview_dark_background);
                         }
                     });
 

@@ -1,8 +1,18 @@
 package main.salonero1.Adapters;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +22,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -21,6 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import main.salonero1.ExpandableLayout;
+import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 import main.salonero1.webservice.VolleySingleton;
@@ -33,8 +46,57 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     Context context;
     private HashSet<Integer> expandedPositionSet;
     private int lastPosition = -1;
-    private Bitmap bitmap;
+    private Bitmap imagenitem;
     private ImageLoader imageLoader;
+    VolleySingleton volley;
+
+
+
+
+
+    public Bitmap blurBitmap(Bitmap bitmap, Context context){
+
+//Let’s create an empty bitmap with the same size of the bitmap we want to blur
+        Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(),   bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+
+//Instantiate a new Renderscript
+        RenderScript rs = RenderScript.create(context);
+
+
+//Create an Intrinsic Blur Script using the Renderscript
+        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+
+
+//Create the in/out Allocations with the Renderscript and the in/out bitmaps
+        Allocation allIn = Allocation.createFromBitmap(rs, bitmap);
+        Allocation allOut = Allocation.createFromBitmap(rs, outBitmap);
+
+
+//Set the radius of the blur
+        blurScript.setRadius(25.f);
+
+
+//Perform the Renderscript
+        blurScript.setInput(allIn);
+        blurScript.forEach(allOut);
+
+
+//Copy the final bitmap created by the out Allocation to the outBitmap
+        allOut.copyTo(outBitmap);
+
+
+//recycle the original bitmap
+        bitmap.recycle();
+
+
+//After finishing everything, we destroy the Renderscript.
+        rs.destroy();
+        return outBitmap;
+
+    }
+
+
 
 
     public adaptermenuitem(List<menuitem> menuitemscategoria,Context context1,List<menuitem> menucompleto1) {
@@ -50,6 +112,11 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.menuitem_row, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
+   volley= new VolleySingleton(context);
+
+
+
+
         return viewHolder;
 
     }
@@ -60,17 +127,28 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         final menuitem menuitem = menuitems.get(i);
+        viewHolder.updateItem(i);
 
 
-        VolleySingleton volley= new VolleySingleton(context);
 
 
         viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
-       viewHolder.cantidad.setText("Cantidad:"+ Integer.toString(menuitem.getCantidad()));
-        imageLoader = volley.getImageLoader();
+     //  viewHolder.cantidad.setText("Mas informacion");
+//        imageLoader = volley.getImageLoader();
+        if(menuitem.getCantidad()==0){
 
-      //  imageLoader = VolleySingleton.getInstance(context).getImageLoader();
+            viewHolder.buttonmas.setText("+");
+
+        }
+        else
+        {
+            viewHolder.buttonmas.setText(Integer.toString(menuitem.getCantidad()));
+
+        }
+
+
+        imageLoader = volley.getInstance(context).getImageLoader();
         // imageLoader.get(superHero.getImageUrl(), ImageLoader.getImageListener(holder.imageView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
         imageLoader.get(menuitem.getImagen(), ImageLoader.getImageListener(viewHolder.imagenPost,
                 R.drawable.loading, android.R.drawable.ic_dialog_alert));
@@ -78,6 +156,27 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
         viewHolder.imagenPost.setImageUrl(menuitem.getImagen(), imageLoader);
+
+
+
+
+  //      final BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inSampleSize = 4;
+
+
+
+
+
+      //  Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.camaronesfondo,options);
+
+      //  Bitmap blurredBitmap = blurBitmap(imagenitem,context);
+
+//        Drawable dr = new BitmapDrawable(blurredBitmap);
+//dr.setColorFilter( Color.RED, PorterDuff.Mode.MULTIPLY);
+  //      viewHolder.expandable.setBackgroundDrawable(dr);
+
+
+
 
         final int posicionj=i;
         setAnimation(viewHolder.container, i);
@@ -171,7 +270,6 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
 
@@ -183,7 +281,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         public NetworkImageView imagenPost;
         FrameLayout container;
         private ExpandableLayout expandableLayout;
-        private Button showInfo;
+
+        private LinearLayout expandable;
 
 
         public ViewHolder(View itemView) {
@@ -197,7 +296,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             buttonmenos = (Button) itemView.findViewById(R.id.buton_menos_menuitem);
             imagenPost = (NetworkImageView) itemView.findViewById(R.id.imagenmenuitem);
             container= (FrameLayout) itemView.findViewById(R.id.item_menu_container);
-          //showInfo = (Button) itemView.findViewById(R.id.showInfo);
+            expandable= (LinearLayout) itemView.findViewById(R.id.expandablelayout);
+
         }
 
 
@@ -221,12 +321,12 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             removeExpand(position);
 
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down1, 0);
-           // textView.setText("Show description");
+            textView.setText("detalle");
            // Toast.makeText(context, "Position: " + position + " collapsed!", Toast.LENGTH_SHORT).show();
         } else {
             addExpand(position);
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up1, 0);
-           // textView.setText("Hide description");
+            textView.setText("detalle");
          //   Toast.makeText(context, "Position: " + position + " expanded!", Toast.LENGTH_SHORT).show();
         }
     }

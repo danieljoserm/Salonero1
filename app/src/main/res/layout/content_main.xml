@@ -33,7 +33,7 @@ android:id="@+id/contentrest"
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="0dp"
+
                 android:background="@color/colorPrimary"
 
                 />

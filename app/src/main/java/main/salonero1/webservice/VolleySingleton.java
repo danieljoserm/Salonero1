@@ -1,7 +1,13 @@
 package main.salonero1.webservice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.LruCache;
 
 import com.android.volley.Request;
@@ -23,13 +29,16 @@ public final class VolleySingleton {
     private RequestQueue requestQueue;
     private static Context context;
     private ImageLoader imageLoader;
-    private Bitmap imagenimageloader;
+    private Bitmap imagenbackground;
 
 
 
 
 
-    public VolleySingleton(Context context) {
+
+
+
+    public VolleySingleton(final Context context) {
         VolleySingleton.context = context;
         requestQueue = getRequestQueue();
 
@@ -40,8 +49,12 @@ public final class VolleySingleton {
 
                     @Override
                     public Bitmap getBitmap(String url) {
-                        imagenimageloader= cache.get(url);
+
+
+                       // imagenbackground=cache.get(url);
                         return cache.get(url);
+
+
                     }
 
                     @Override
@@ -89,13 +102,11 @@ public final class VolleySingleton {
     }
 
 
+public Bitmap devolverimagen(){
 
+    return imagenbackground;
+}
 
-    public Bitmap devolverimagen(){
-
-
-       return imagenimageloader;
-    }
 
 
     public ImageLoader getImageLoader() {
