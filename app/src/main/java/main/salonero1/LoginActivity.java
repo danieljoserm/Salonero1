@@ -3,6 +3,7 @@ package main.salonero1;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -56,10 +57,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import main.salonero1.clases.Restau;
 import main.salonero1.pushnotifications.SharedPrefManager;
 import main.salonero1.webservice.Constantes;
 import main.salonero1.webservice.VolleySingleton;
-
+import main.salonero1.SaveSharedPreference;
 import android.Manifest;
 
 
@@ -97,7 +99,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private static final String TAG = LoginActivity.class.getSimpleName();
 
+
     String  mPhoneNumber;
+
+    String email;
+    String contrasena;
+
     //Permiso de acceder al numero telefonico
 
 
@@ -154,6 +161,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
+     // savemail=  getSharedPreferences("", Context.MODE_PRIVATE);
 
 
 
@@ -221,8 +229,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //if token is not null
 
 
-               String email=mEmailView.getText().toString();
-               String contrasena=mPasswordView.getText().toString();
+                email=mEmailView.getText().toString();
+               contrasena=mPasswordView.getText().toString();
 
                 TelephonyManager tMgr =(TelephonyManager)getApplicationContext().getSystemService(getApplicationContext().TELEPHONY_SERVICE);
                 mPhoneNumber = tMgr.getLine1Number().toString();
@@ -528,6 +536,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
                 startActivity(intent);
+               // SaveSharedPreference.setUserName(this,email);
 
 
             }
@@ -536,7 +545,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Toast.makeText(LoginActivity.this,"Usuario registrado",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
                 startActivity(intent);
-
+              //  SaveSharedPreference.setUserName(this,email);
 
 
             }

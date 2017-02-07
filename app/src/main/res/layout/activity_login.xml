@@ -11,6 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/contentlogin"
 
+    android:fitsSystemWindows="true"
     tools:context="main.salonero1.LoginActivity">
 
     <!-- Login progress -->

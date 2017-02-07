@@ -160,14 +160,14 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
 
-  //      final BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inSampleSize = 4;
+   BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
 
 
 
 
 
-      //  Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.camaronesfondo,options);
+    //    Bitmap bitmap = BitmapFactory.decodeResource(MainActivity.getResources(), R.drawable.camaronesfondo,options);
 
       //  Bitmap blurredBitmap = blurBitmap(imagenitem,context);
 

@@ -36,7 +36,7 @@
 
 
         <LinearLayout
-            android:background="@drawable/fondoitem"
+            android:background="@drawable/fondoitemnuevo"
             android:id="@+id/top_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:text="-"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:textSize="25dp"
+                android:textSize="45dp"
                 android:id="@+id/buton_menos_menuitem"
 
                 />
@@ -79,6 +79,9 @@
 
 
                 <TextView
+                    android:textStyle="bold"
+                    android:paddingTop="7dp"
+                    android:textSize="16dp"
 android:textColor="@color/blanco"
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
@@ -87,22 +90,23 @@ android:textColor="@color/blanco"
                     android:textAppearance="@style/TextAppearance.AppCompat" />
 
                 <TextView
+
+                    android:textSize="14dp"
                     android:textColor="@color/blanco"
                     android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Precio"
                 android:id="@+id/Preciomenuitem"
                     android:textAppearance="@style/TextAppearance.AppCompat"
-                    android:elevation="0dp"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
-                    android:keepScreenOn="false"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="0dp"
-                    android:paddingTop="7dp"
-                    android:layout_weight="0.91" />
+
+
+
+
+                    android:paddingTop="5dp"
+                    android:layout_weight="0.35" />
 
                 <TextView
+                    android:paddingTop="10dp"
                     android:textColor="@color/blanco"
                     android:drawableRight="@drawable/arrow_down1"
                     android:drawablePadding="30dp"
@@ -112,7 +116,7 @@ android:textColor="@color/blanco"
                     android:layout_width="wrap_content"
                     android:id="@+id/Cantidadmenuitem"
                     android:textAppearance="@style/TextAppearance.AppCompat"
-                    android:layout_height="20dp" />
+                    android:layout_height="wrap_content" />
 
 
             </LinearLayout>
@@ -127,20 +131,6 @@ android:textColor="@color/blanco"
                 android:id="@+id/buton_mas_menuitem" />
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </LinearLayout>
 
 
@@ -150,9 +140,10 @@ android:textColor="@color/blanco"
 
 
     <LinearLayout
-        android:background="@drawable/customborder2"
+
+        android:background="@color/fondoexpandable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/expandablelayout"
         android:orientation="vertical"
         android:padding="10dp">
@@ -163,26 +154,65 @@ android:textColor="@color/blanco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Patacones"
-        android:textSize="10dp"
+        android:textSize="18dp"
          android:textStyle="bold"
         android:textColor="@android:color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="asdfadsfdsfffffffffffavcxvcxvzxc
-            vzxzcvcxzvxczvxcvcxvzcxvxczvxcvcxvxzcvcxvcxv
-            cxv
-            zxcvzxcvzcxvcxzvzxcvcxvzcxvxczvcxvcxv"
-            android:textSize="10dp"
-            android:textStyle="bold"
+            android:text="Aqui iria una explicacion del producto. Talvez unas oraciones para describir brevemente el producto. y una lista por ejemplo Contiene:aguacate,frijoles molidos,pico de gallo, queso mozzarella.
+             "
+            android:textSize="14dp"
+
             android:textColor="@android:color/white" />
 
-        <Button
-            android:text="Button"
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+
+                android:text="Para todos"
+                android:textColor="@color/blanco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox2"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:textColor="@color/blanco"
+                android:text="Algunos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox"
+                android:layout_weight="1" />
+
+            <EditText
+                android:backgroundTint="@color/blanco"
+                android:textColor="@color/blanco"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="cuantos?"
+                android:textColorHint="@color/blanco"
+                android:ems="10"
+                android:id="@+id/editTextcuantos" />
+        </LinearLayout>
+
+        <EditText
+            android:backgroundTint="@color/blanco"
+            android:textColor="@color/blanco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button3" />
+            android:inputType="textPersonName"
+            android:hint="Ingrese alguna indicacion"
+            android:textColorHint="@color/blanco"
+            android:ems="10"
+            android:id="@+id/editText" />
+
 
     </LinearLayout>
 

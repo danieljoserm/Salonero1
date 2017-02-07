@@ -115,6 +115,16 @@ public class Restaurante_Activity extends AppCompatActivity  implements ItemClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+/*        if(SaveSharedPreference.getUserName(Restaurante_Activity.this).length() == 0)
+        {
+            Intent intent = new Intent(Restaurante_Activity.this,LoginActivity.class);
+            startActivity(intent);
+       }*/
+
+
         setContentView(R.layout.activity_restaurante);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
