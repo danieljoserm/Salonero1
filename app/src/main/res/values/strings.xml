@@ -13,6 +13,7 @@
 
 
     <!-- Strings related to login -->
+    <string name="facebook_app_id">1473885225968586</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>

@@ -15,6 +15,7 @@
     tools:context="main.salonero1.LoginActivity">
 
     <!-- Login progress -->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="198dp"
@@ -32,7 +33,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -83,7 +84,7 @@
 
             <Button
                 android:textSize="16dp"
-                android:textColor="@color/blanco"
+                android:textColor="@drawable/button_login_color"
                 android:background="@android:color/transparent"
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -107,6 +108,15 @@
                 android:text="@string/forgetpass"
                 />
 
-                    </LinearLayout>
+        </LinearLayout>
     </ScrollView>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebooklogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
+
 </LinearLayout>

@@ -49,6 +49,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +63,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 import main.salonero1.clases.Restau;
+
+
 import main.salonero1.pushnotifications.SharedPrefManager;
 import main.salonero1.webservice.Constantes;
 import main.salonero1.webservice.VolleySingleton;
@@ -99,7 +108,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
     String  mPhoneNumber;
 
     String email;
@@ -153,6 +163,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -161,14 +172,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-     // savemail=  getSharedPreferences("", Context.MODE_PRIVATE);
 
+
+        loginButton = (LoginButton)findViewById(R.id.facebooklogin);
 
 
 
 
 
         LinearLayout rl=(LinearLayout) findViewById(R.id.contentlogin);
+
+
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
 
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -278,7 +295,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-    }
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                Toast.makeText(getApplicationContext(), "Name " + loginResult.getAccessToken().getUserId(), Toast.LENGTH_LONG).show();
+
+
+
+
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "Name " + "cancelo", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+                Toast.makeText(getApplicationContext(), "Name " + "murio", Toast.LENGTH_LONG).show();
+            }
+
+
+        });
+
+
+    }// aqui termina on create
 
 
 
@@ -317,6 +362,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Callback received when a permissions request has been completed.
      */
+
+
+
+    //metodo usado en facebook..
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
