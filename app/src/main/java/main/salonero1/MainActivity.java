@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     menuitem[] menulista;
 
     String Restnombre;
-
+    DrawerLayout drawer;
     int cantidadtitulos;
 
     List<categorias> categoriaslista;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.cuenta));
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -107,6 +107,28 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
+        NavigationView rightNavigationView = (NavigationView) findViewById(R.id.nav_right_view);
+        rightNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                // Handle Right navigation view item clicks here.
+                int id = item.getItemId();
+
+                if (id == R.id.nav_settings) {
+                    Toast.makeText(MainActivity.this, "Right Drawer - Settings", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_logout) {
+                    Toast.makeText(MainActivity.this, "Right Drawer - Logout", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_help) {
+                    Toast.makeText(MainActivity.this, "Right Drawer - Help", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_about) {
+                    Toast.makeText(MainActivity.this, "Right Drawer - About", Toast.LENGTH_SHORT).show();
+                }
+
+                drawer.closeDrawer(GravityCompat.END); /*Important Line*/
+                return true;
+            }
+        });
 
 
         fragmentcargando= new FragmentCargando();
@@ -267,14 +289,14 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.carritocompra) {
 
-
-            ft = getSupportFragmentManager().beginTransaction();
+            drawer.openDrawer(GravityCompat.END);
+         //   ft = getSupportFragmentManager().beginTransaction();
 
 // Replace the contents of the container with the new fragment
-            ft.replace(R.id.Fragmentlayout, Tabdesgloce.newInstance(menu));
+           // ft.replace(R.id.Fragmentlayout, Tabdesgloce.newInstance(menu));
 
 
-            ft.commit();
+            //ft.commit();
 
 
 

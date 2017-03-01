@@ -25,7 +25,7 @@ public class Constantes {
      * URLs del Web Service
 
      */
-    public static final String registrarloguear = " http://52.38.158.11/i_wishdata/RegisterDevice.php";
+    public static final String registrarloguear = " http://52.38.158.11/i_wishdata/register_user.php";
 
    // public static final String registrarloguear = "http://" + IP + PUERTO_HOST + "/i_wishdata/RegisterDevice.php";
     public static final String GETmenu = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_menu.php";

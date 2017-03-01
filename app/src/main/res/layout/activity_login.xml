@@ -95,7 +95,6 @@
                 android:textStyle="bold" />
 
 
-
             <Button
                 android:textSize="12dp"
                 android:textColor="@color/blanco"
@@ -108,8 +107,11 @@
                 android:text="@string/forgetpass"
                 />
 
+
+
         </LinearLayout>
     </ScrollView>
+
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebooklogin"
@@ -117,6 +119,5 @@
         android:layout_height="wrap_content"
 
         />
-
 
 </LinearLayout>

@@ -163,7 +163,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -174,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        loginButton = (LoginButton)findViewById(R.id.facebooklogin);
+       loginButton = (LoginButton)findViewById(R.id.facebooklogin);
 
 
 
@@ -184,8 +185,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
+
 
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -253,7 +253,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPhoneNumber = tMgr.getLine1Number().toString();
 
 
-                int numerocel= (int)(Math.random()*(99999999-10000000+1)+10000000);
+               int numerocel= (int)(Math.random()*(99999999-10000000+1)+10000000);
 
 
 
@@ -261,7 +261,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                map.put("email", email);
                 map.put("token",token );
-                map.put("numerocel", mPhoneNumber);
+               map.put("numerocel", mPhoneNumber);
                 map.put("contrasena", contrasena);
 
 
@@ -275,6 +275,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     registrarologuear(jobject);
 
                 }
+
+                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
+                startActivity(intent);
 
 
 
@@ -296,7 +299,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+       loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
@@ -359,9 +362,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return false;
     }
 
-    /**
-     * Callback received when a permissions request has been completed.
-     */
 
 
 
@@ -381,11 +381,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -450,9 +446,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
