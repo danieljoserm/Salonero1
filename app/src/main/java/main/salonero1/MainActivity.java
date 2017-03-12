@@ -19,13 +19,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import main.salonero1.Adapters.adaptercuenta;
 import main.salonero1.Tabs.Dialognummesa;
 import main.salonero1.Tabs.FragmentCargando;
 import main.salonero1.Tabs.Tabdesgloce;
@@ -62,10 +67,13 @@ public class MainActivity extends AppCompatActivity
     private Menu menuchange;
     List<menuitem> menu;
     menuitem[] menulista;
+List<menuitem> pedido;
 
     String Restnombre;
     DrawerLayout drawer;
     int cantidadtitulos;
+
+
 
     List<categorias> categoriaslista;
     categorias[] categorias;
@@ -76,6 +84,12 @@ public class MainActivity extends AppCompatActivity
     //int Numboftabs =5;
     //fdf
     //botones
+
+    RecyclerView mRecyclerView;
+    RecyclerView.LayoutManager mLayoutManager;
+    RecyclerView.Adapter Adapter;
+
+
 
     FragmentTransaction ft;
     FragmentCargando fragmentcargando;
@@ -99,12 +113,59 @@ public class MainActivity extends AppCompatActivity
 
          drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        {
+
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+
+
+
+                if(pedido!=null) {
+
+                    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_cuenta);
+                    mRecyclerView.setHasFixedSize(true);
+
+                    //   mLayoutManager = new LinearLayoutManager(rootView.getContext());
+                    // mRecyclerView.setLayoutManager(mLayoutManager);
+
+                    mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
+                    mRecyclerView.setLayoutManager(mLayoutManager);
+
+                    Adapter = new adaptercuenta(pedido);
+                    //
+                    mRecyclerView.setAdapter(Adapter);
+
+                }
+                else
+
+                {
+
+
+
+                    Toast.makeText(getApplicationContext(),"Su lista de pedidos se encuentra vacia" ,Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+            }
+        }
+
+                ;
+
+
+
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
 
 
 
@@ -115,15 +176,6 @@ public class MainActivity extends AppCompatActivity
                 // Handle Right navigation view item clicks here.
                 int id = item.getItemId();
 
-                if (id == R.id.nav_settings) {
-                    Toast.makeText(MainActivity.this, "Right Drawer - Settings", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_logout) {
-                    Toast.makeText(MainActivity.this, "Right Drawer - Logout", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_help) {
-                    Toast.makeText(MainActivity.this, "Right Drawer - Help", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_about) {
-                    Toast.makeText(MainActivity.this, "Right Drawer - About", Toast.LENGTH_SHORT).show();
-                }
 
                 drawer.closeDrawer(GravityCompat.END); /*Important Line*/
                 return true;
@@ -139,7 +191,7 @@ public class MainActivity extends AppCompatActivity
         //showdialogmesa();
 
         menu=new ArrayList<menuitem>();
-
+        pedido=new ArrayList<menuitem>();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
@@ -155,8 +207,8 @@ public class MainActivity extends AppCompatActivity
             Restnombre =(String) b.get("Nombreresta");
 
         }
-        Toast.makeText(this.getBaseContext(),Restnombre ,
-                Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(this.getBaseContext(),Restnombre ,
+      //          Toast.LENGTH_SHORT).show();
 
 
         getSupportActionBar().setTitle(Restnombre);
@@ -172,8 +224,6 @@ public class MainActivity extends AppCompatActivity
 
 
       cargarDatos();
-
-
 
 
 
@@ -212,6 +262,17 @@ public class MainActivity extends AppCompatActivity
             menu.get(index).setCantidad(cantidad);
 
 
+if(contained(pedido,index)){
+
+
+}
+else{
+pedido.add(menu.get(index));
+}
+
+
+
+           // pedido.contains(menu.
             //Toast.makeText(MainActivity.this,"probando"+"cantidad:"+cantidad+"posicion:"+index ,Toast.LENGTH_SHORT).show();
             //global = (List<Cupon>) i.getSerializableExtra("LIST");
 
@@ -234,7 +295,25 @@ public class MainActivity extends AppCompatActivity
     };
 
 
+public boolean contained (List<menuitem> pedido, int index){
 
+ boolean esta=false;
+    for(int i = 0; i < pedido.size(); i++){
+
+     if(pedido.get(i).getNombremenuitem().equals(menu.get(index).getNombremenuitem())){
+
+         esta=true;
+     }
+
+    }
+if(esta){
+
+    return true;
+}
+else{return false;
+}
+
+}
 
     @Override
     public void onBackPressed() {

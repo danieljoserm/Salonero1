@@ -276,6 +276,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 }
 
+
+                //hay que cambiar esto.
                 Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
                 startActivity(intent);
 

@@ -35,11 +35,64 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_right_drawer" />
+
+        app:menu="@menu/activity_right_drawer"
 
 
 
+
+
+
+
+
+
+        >
+
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/nav_header_main"
+            android:id="@+id/my"
+            />
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_cuenta"
+                android:layout_width="match_parent"
+                android:layout_height="245dp"
+                android:scrollbars="vertical"
+                android:background="@android:color/transparent"
+
+
+                android:layout_weight="0.89" />
+
+
+            <TextView
+                android:text="patacones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textpatacones" />
+
+            <TextView
+                android:text="papas fritas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textshit" />
+
+            <Button
+                android:text="Ordenar"
+                android:layout_marginBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2" />
+
+        </LinearLayout>
+    </android.support.design.widget.NavigationView>
 
 
 </android.support.v4.widget.DrawerLayout>
