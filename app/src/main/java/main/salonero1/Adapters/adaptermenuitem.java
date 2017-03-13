@@ -53,7 +53,6 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
 
-
     public Bitmap blurBitmap(Bitmap bitmap, Context context){
 
 //Let’s create an empty bitmap with the same size of the bitmap we want to blur
@@ -177,8 +176,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
 
+        final int  posicionj=i;
 
-        final int posicionj=i;
         setAnimation(viewHolder.container, i);
 
 
@@ -202,6 +201,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
                 intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
                 intent.putExtra("posicion",Integer.toString(menuitems.get(posicionj).getindex()) );
+
+
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 notifyDataSetChanged();
@@ -227,12 +228,12 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
                 Intent intent = new Intent("custom-message");
                 //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
-                intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
-                intent.putExtra("posicion",Integer.toString(menuitems.get(posicionj).getindex()) );
+               intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
+               intent.putExtra("posicion",Integer.toString(menuitems.get(posicionj).getindex()) );
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            //    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 notifyDataSetChanged();
 

@@ -29,6 +29,7 @@ public class Constantes {
 
    // public static final String registrarloguear = "http://" + IP + PUERTO_HOST + "/i_wishdata/RegisterDevice.php";
     public static final String GETmenu = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_menu.php";
+    public static final String GETmenu2 = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_menu2.php";
     public static final String GETitems = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_";
     public static final String GETrestaurante = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_restaurante.php";
     public static final String GETcategorias= "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_categorias.php";

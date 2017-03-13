@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class menuitem implements Serializable {
     private int index;
+    private  String restaurante;
     private String Nombre;
      private int Precio;
     private int Cantidad;
@@ -15,9 +16,10 @@ public class menuitem implements Serializable {
 
 
 
-    public menuitem(int index, String categoria1,String Nombre, int cantidad1, int precio1, String imagen){
+    public menuitem(int index, String categoria1,String Nombre, int cantidad1, int precio1, String imagen,String restaurante){
         this.Cantidad=cantidad1;
         this.Nombre=Nombre;
+        this.restaurante=restaurante;
         this.Precio=precio1;
         this.categoria=categoria1;
         this.Imagen=imagen;
@@ -54,7 +56,10 @@ public class menuitem implements Serializable {
         this.Imagen=imagen ;
     }
 
+    public void setRestaurante (String restaurante){
 
+        this.restaurante=restaurante;
+    }
 
 
 
@@ -95,6 +100,9 @@ public class menuitem implements Serializable {
         return index;
     }
 
+public String getRestaurante(){
+    return restaurante;
+}
 
 
 
