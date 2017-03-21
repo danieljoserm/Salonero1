@@ -112,7 +112,7 @@ android:textColor="@color/blanco"
                     android:drawablePadding="30dp"
                     android:gravity="center"
 
-                    android:text="detalle"
+                    android:text="@string/detalle"
                     android:layout_width="wrap_content"
                     android:id="@+id/Cantidadmenuitem"
                     android:textAppearance="@style/TextAppearance.AppCompat"
@@ -150,7 +150,8 @@ android:textColor="@color/blanco"
 
 
 
-        <TextView
+        <TextViex
+        android:id="@+id/titulodescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Patacones"
@@ -173,33 +174,6 @@ android:textColor="@color/blanco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <CheckBox
-
-                android:text="Para todos"
-                android:textColor="@color/blanco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox2"
-                android:layout_weight="1" />
-
-            <CheckBox
-                android:textColor="@color/blanco"
-                android:text="Algunos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox"
-                android:layout_weight="1" />
-
-            <EditText
-                android:backgroundTint="@color/blanco"
-                android:textColor="@color/blanco"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="cuantos?"
-                android:textColorHint="@color/blanco"
-                android:ems="10"
-                android:id="@+id/editTextcuantos" />
         </LinearLayout>
 
         <EditText

@@ -72,7 +72,7 @@ List<menuitem> pedido;
     String Restnombre;
     DrawerLayout drawer;
     int cantidadtitulos;
-
+    int sumatotal=0;
 
 
     List<categorias> categoriaslista;
@@ -88,13 +88,13 @@ List<menuitem> pedido;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter Adapter;
-
+boolean refrescar=false;
 
 
     FragmentTransaction ft;
     FragmentCargando fragmentcargando;
 
-
+    TextView sumadesgloce;
 
     private void showdialogmesa() {
         FragmentManager fm = getFragmentManager();
@@ -111,6 +111,9 @@ List<menuitem> pedido;
         setSupportActionBar(toolbar);
         toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.cuenta));
 
+        sumadesgloce =(TextView) findViewById(R.id.textViewsumadesgloce);
+
+        //sumadesgloce.setText("hola");
          drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -120,7 +123,16 @@ List<menuitem> pedido;
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
 
+                sumatotal = 0;
+                for(int i=0;i<pedido.size();i++) {
 
+
+
+                        sumatotal = (pedido.get(i).getPrecio() * pedido.get(i).getCantidad()) + sumatotal;
+
+               }
+
+                sumadesgloce.setText("Precio Total:"+Integer.toString(sumatotal));
 
 
                 if(pedido!=null) {
@@ -134,7 +146,7 @@ List<menuitem> pedido;
                     mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
                     mRecyclerView.setLayoutManager(mLayoutManager);
 
-                    Adapter = new adaptercuenta(pedido);
+                    Adapter = new adaptercuenta(pedido,getApplicationContext());
                     //
                     mRecyclerView.setAdapter(Adapter);
 
@@ -152,6 +164,25 @@ List<menuitem> pedido;
 
 
             }
+
+            public void onDrawerClosed(View drawerView)
+            {
+
+
+                if(refrescar==true) {
+
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                refrescar=false;
+
+
+
+
+            }
+
+
         }
 
                 ;
@@ -199,6 +230,12 @@ List<menuitem> pedido;
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver1,
               new IntentFilter("botonrevisar"));
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver2,
+                new IntentFilter("sumar"));
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver3,
+                new IntentFilter("restar"));
 
 
 
@@ -272,6 +309,9 @@ pedido.add(menu.get(index));
 
 
 
+
+
+
            // pedido.contains(menu.
             //Toast.makeText(MainActivity.this,"probando"+"cantidad:"+cantidad+"posicion:"+index ,Toast.LENGTH_SHORT).show();
             //global = (List<Cupon>) i.getSerializableExtra("LIST");
@@ -289,6 +329,51 @@ pedido.add(menu.get(index));
 
             pager.getAdapter().notifyDataSetChanged();
 
+
+
+        }
+    };
+
+    public BroadcastReceiver mMessageReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            int precio = Integer.parseInt(intent.getStringExtra("precio"));
+            sumatotal=sumatotal+precio;
+            sumadesgloce.setText("Precio Total:"+Integer.toString(sumatotal));
+            refrescar=true;
+
+
+        }
+    };
+
+    public BroadcastReceiver mMessageReceiver3 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            int precio = Integer.parseInt(intent.getStringExtra("precio"));
+
+           if(sumatotal>=0){
+               sumatotal=sumatotal-precio;
+               //sumadesgloce.setText("Precio Total:"+ Integer.toString(sumatotal));
+
+           }
+
+            if(sumatotal<=0){
+                sumatotal=0;
+                sumadesgloce.setText("Precio Total:0");
+                refrescar=true;
+
+            }
+
+            else
+            {
+
+                refrescar=true;
+                sumadesgloce.setText("Precio Total:"+ Integer.toString(sumatotal));
+            }
 
 
         }
@@ -404,11 +489,7 @@ else{return false;
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        }  else if (id == R.id.nav_share) {
 
         } else if (id == R.id.sign_out) {
 
@@ -437,14 +518,14 @@ else{return false;
 
      //   "?idMeta="
 
-      //  String URL=Constantes.GETmenu2 +"?restaurante="+Restnombre;
+        String URL=Constantes.GETmenu2 +"?restaurante="+Restnombre;
 
 
         VolleySingleton.getInstance(this).
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET,
-                                Constantes.GETmenu,
+                                URL,
                                 null,
                                 new Response.Listener<JSONObject>() {
 

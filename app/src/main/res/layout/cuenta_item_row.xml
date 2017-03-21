@@ -7,66 +7,82 @@
     >
 
 
-
-
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
 
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-
-
-
-
+        android:layout_height="60dp"
 
 
         >
+
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="2dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             >
 
-        <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:padding="2dp"
+            android:orientation="horizontal"
+                android:layout_weight="7.73">
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ryeah"
-            android:id="@+id/textcuentaNombre" />
+                <TextView
 
-            <View
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Ryeah"
+                android:layout_gravity="center"
+                android:id="@+id/textcuentaNombre" />
+
+
+                <View
+                android:layout_width="15dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.78"
                 />
 
-        <TextView
-
+            <TextView
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Cantidad:15"
+                android:layout_gravity="center"
             android:id="@+id/Textcuentacantidad" />
 
-            <View
-                android:layout_width="30dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                />
+            <Button
+                android:layout_gravity="center"
+                android:text="+"
+                android:textSize="25dp"
+                android:layout_width="46dp"
+                android:layout_height="76dp"
+                android:id="@+id/buttonmascuenta" />
 
             <Button
+                android:layout_gravity="center"
                 android:layout_alignParentRight="true"
                 android:layout_width="49dp"
-                android:layout_height="wrap_content"
-                android:text="X"
+                android:textSize="25dp"
+                android:layout_height="68dp"
+                android:text="-"
                 android:id="@+id/botoneliminarcuenta" />
 
         </LinearLayout>
 
+            <TextView
+                android:text="Precio:1000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/preciocuenta"
+                android:layout_weight="1" />
 
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
