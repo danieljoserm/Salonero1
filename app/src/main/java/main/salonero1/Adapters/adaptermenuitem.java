@@ -130,9 +130,10 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
 
-
+        viewHolder.titulodescripcion.setText(menuitem.getNombremenuitem());
         viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
+
      //  viewHolder.cantidad.setText("Mas informacion");
 //        imageLoader = volley.getImageLoader();
         if(menuitem.getCantidad()==0){
@@ -282,9 +283,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         public NetworkImageView imagenPost;
         FrameLayout container;
         private ExpandableLayout expandableLayout;
-
         private LinearLayout expandable;
-
+        public TextView titulodescripcion;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -298,6 +298,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             imagenPost = (NetworkImageView) itemView.findViewById(R.id.imagenmenuitem);
             container= (FrameLayout) itemView.findViewById(R.id.item_menu_container);
             expandable= (LinearLayout) itemView.findViewById(R.id.expandablelayout);
+            titulodescripcion= (TextView) itemView.findViewById(R.id.titulodescripcion);
 
         }
 
@@ -322,12 +323,13 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             removeExpand(position);
 
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down1, 0);
-            textView.setText("detalle");
+            textView.setText(R.string.detalle);
            // Toast.makeText(context, "Position: " + position + " collapsed!", Toast.LENGTH_SHORT).show();
         } else {
             addExpand(position);
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up1, 0);
-            textView.setText("detalle");
+            textView.setText(R.string.detalle);
+           // textview1.setText(menuitem.getNombremenuitem());
          //   Toast.makeText(context, "Position: " + position + " expanded!", Toast.LENGTH_SHORT).show();
         }
     }

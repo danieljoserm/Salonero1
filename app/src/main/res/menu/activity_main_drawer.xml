@@ -5,19 +5,12 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Pedir ayuda" />
+            android:title="Cambiar Tarjeta" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Presentar opinion" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="pedir cuenta" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="pedir express," />
+            android:title="Cambiar contrasena" />
+
     </group>
 
     <item android:title="Opciones">

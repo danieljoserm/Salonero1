@@ -19,122 +19,122 @@
 
 
 
-    <android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView
 
 
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
 
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        card_view:cardCornerRadius="0dp"
-
-
-
-
-
-        >
-
-
-        <LinearLayout
-            android:background="@drawable/fondoitemnuevo"
-            android:id="@+id/top_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_height="100dp"
+            card_view:cardCornerRadius="0dp"
 
 
 
-            <com.android.volley.toolbox.NetworkImageView
-                android:layout_width="60dp"
-                android:layout_height="102dp"
-                android:id="@+id/imagenmenuitem"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
 
-                android:scaleType="centerCrop"
-                android:layout_weight="0.32" />
 
-            <Button style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="51dp"
-                android:layout_height="match_parent"
-                android:text="-"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:textSize="45dp"
-                android:id="@+id/buton_menos_menuitem"
-
-                />
+            >
 
 
             <LinearLayout
+                android:background="@drawable/fondoitemnuevo"
+                android:id="@+id/top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-            android:orientation="vertical"
-            android:layout_width="127dp"
-            android:layout_height="match_parent"
-                android:layout_weight="0.56"
+                android:orientation="horizontal"
                 android:weightSum="1">
 
 
-                <TextView
-                    android:textStyle="bold"
-                    android:paddingTop="7dp"
-                    android:textSize="16dp"
-android:textColor="@color/blanco"
-                    android:layout_width="wrap_content"
-                    android:layout_height="27dp"
-                    android:text="Nombre"
-                    android:id="@+id/Nombremenuitem"
-                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
-                <TextView
+                <com.android.volley.toolbox.NetworkImageView
+                    android:layout_width="60dp"
+                    android:layout_height="102dp"
+                    android:id="@+id/imagenmenuitem"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
 
-                    android:textSize="14dp"
-                    android:textColor="@color/blanco"
-                    android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="Precio"
-                android:id="@+id/Preciomenuitem"
-                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:scaleType="centerCrop"
+                    android:layout_weight="0.32" />
 
-
-
-
-                    android:paddingTop="5dp"
-                    android:layout_weight="0.35" />
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:textColor="@color/blanco"
-                    android:drawableRight="@drawable/arrow_down1"
-                    android:drawablePadding="30dp"
+                <Button style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="51dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:background="@android:color/transparent"
                     android:gravity="center"
+                    android:textSize="45dp"
+                    android:id="@+id/buton_menos_menuitem"
 
-                    android:text="@string/detalle"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/Cantidadmenuitem"
-                    android:textAppearance="@style/TextAppearance.AppCompat"
-                    android:layout_height="wrap_content" />
+                    />
+
+
+                <LinearLayout
+
+                    android:orientation="vertical"
+                    android:layout_width="127dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.56"
+                    android:weightSum="1">
+
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:paddingTop="7dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/blanco"
+                        android:layout_width="wrap_content"
+                        android:layout_height="27dp"
+                        android:text="Nombre"
+                        android:id="@+id/Nombremenuitem"
+                        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                    <TextView
+
+                        android:textSize="14dp"
+                        android:textColor="@color/blanco"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="Precio"
+                        android:id="@+id/Preciomenuitem"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+
+
+
+
+                        android:paddingTop="5dp"
+                        android:layout_weight="0.35" />
+
+                    <TextView
+                        android:paddingTop="10dp"
+                        android:textColor="@color/blanco"
+                        android:drawableRight="@drawable/arrow_down1"
+                        android:drawablePadding="30dp"
+                        android:gravity="center"
+
+                        android:text="@string/detalle"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/Cantidadmenuitem"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+                <Button  style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="51dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:textSize="25dp"
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/buton_mas_menuitem" />
 
 
             </LinearLayout>
 
-            <Button  style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="51dp"
-                android:layout_height="match_parent"
-                android:text="+"
-                android:textSize="25dp"
-                android:gravity="center"
-                android:background="@android:color/transparent"
-                android:id="@+id/buton_mas_menuitem" />
 
-
-        </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
     </FrameLayout>
 
@@ -150,14 +150,14 @@ android:textColor="@color/blanco"
 
 
 
-        <TextViex
-        android:id="@+id/titulodescripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Patacones"
-        android:textSize="18dp"
-         android:textStyle="bold"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/titulodescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patacones"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -169,12 +169,7 @@ android:textColor="@color/blanco"
             android:textColor="@android:color/white" />
 
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-        </LinearLayout>
 
         <EditText
             android:backgroundTint="@color/blanco"
@@ -193,4 +188,3 @@ android:textColor="@color/blanco"
 
 
 </main.salonero1.ExpandableLayout>
-

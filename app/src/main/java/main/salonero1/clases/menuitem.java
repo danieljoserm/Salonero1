@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class menuitem implements Serializable {
     private int index;
     private  String restaurante;
-    private String Nombre;
+ private String Nombre;
      private int Precio;
     private int Cantidad;
     private String categoria;
@@ -75,7 +75,7 @@ public class menuitem implements Serializable {
         return Imagen;
     }
 
-    public String getNombremenuitem(){
+    public  String getNombremenuitem(){
 
 
         return Nombre;

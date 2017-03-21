@@ -1,8 +1,13 @@
 package main.salonero1.Tabs;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,7 +59,8 @@ String texto;
 
         menucategoria= new ArrayList<menuitem>();
 
-
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
+                new IntentFilter("actualizar"));
 
         for(int i=0;i<menuitems1.size();i++){
 
@@ -93,7 +99,20 @@ String texto;
         return rootView;
     }
 
-    @Override
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+
+            Adapter.notifyDataSetChanged();
+
+        }
+    };
+
+
+
+            @Override
     public void onResume() {
         super.onResume();
 
@@ -102,6 +121,8 @@ String texto;
 
 
 }
+
+
 
     static public void refresh(){
      Adapter.notifyDataSetChanged();
@@ -134,6 +155,8 @@ String texto;
 
         }
     }
+
+
 
 
 

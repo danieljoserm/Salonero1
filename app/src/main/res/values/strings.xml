@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_restaurante_">Restaurante_Activity</string>
     <string name="title_activity_login">Sign in</string>
-
+    <string name="detalle"><u><b><i>Detallar </i></b></u></string>
 
     <string name="forgetpass"><u>olvidaste la contrasena</u>.</string>
 

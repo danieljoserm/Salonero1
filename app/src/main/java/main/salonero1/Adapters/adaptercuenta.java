@@ -1,5 +1,8 @@
 package main.salonero1.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +23,12 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
 
 
     List<menuitem> menuitems;
+    Context context;
 
 
-
-    public adaptercuenta(List<menuitem> menuitems1) {
+    public adaptercuenta(List<menuitem> menuitems1,Context context1) {
         super();
-
+context=context1;
       menuitems=menuitems1;
 
     }
@@ -45,12 +48,25 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
 
        viewHolder.nombrecuenta.setText(menuitems.get(i).getNombremenuitem());
         viewHolder.cantidad.setText(Integer.toString(menuitems.get(i).getCantidad()));
-
+viewHolder.precio.setText(Integer.toString(menuitems.get(i).getPrecio()));
         final int posicionj=i;
 
         viewHolder.buttonx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
+                if(menuitems.get(posicionj).getCantidad()!=0) {
+
+                    Intent intent = new Intent("restar");
+                    //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
+                    //  intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
+                    intent.putExtra("precio", Integer.toString(menuitems.get(posicionj).getPrecio()));
+
+
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                }
 
                 if(menuitems.get(posicionj).getCantidad()!=0)
                 {
@@ -58,13 +74,38 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
 
                 }
 
-                notifyDataSetChanged();
+                    notifyDataSetChanged();
 
 
 
             }
             });
 
+        viewHolder.buttonmas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                    menuitems.get(posicionj).setCantidad(menuitems.get(posicionj).getCantidad() + 1);
+
+
+
+
+                Intent intent = new Intent("sumar");
+                //            intent.putExtra("quantity",Integer.parseInt(quantity.getText().toString()));
+               //intent.putExtra("cantidad",Integer.toString(menuitems.get(posicionj).getCantidad()));
+                intent.putExtra("precio",Integer.toString(menuitems.get(posicionj).getPrecio()) );
+
+
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
+                notifyDataSetChanged();
+
+
+
+            }
+        });
 
     }
 
@@ -82,8 +123,8 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
         public TextView nombrecuenta;
         public TextView cantidad;
         public Button buttonx;
-
-
+        public TextView precio;
+        public Button buttonmas;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,8 +132,8 @@ public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder
            nombrecuenta = (TextView) itemView.findViewById(R.id.textcuentaNombre);
             cantidad = (TextView) itemView.findViewById(R.id.Textcuentacantidad);
             buttonx= (Button) itemView.findViewById(R.id.botoneliminarcuenta);
-
-
+            precio = (TextView) itemView.findViewById(R.id.preciocuenta);
+            buttonmas = (Button) itemView.findViewById(R.id.buttonmascuenta);
 
         }
     }

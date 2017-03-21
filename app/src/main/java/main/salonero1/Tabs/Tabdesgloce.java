@@ -149,7 +149,7 @@ public class Tabdesgloce extends Fragment {
             mLayoutManager = new GridLayoutManager(v.getContext(), 1);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
-            Adapter = new adaptercuenta(pedido);
+           // Adapter = new adaptercuenta(pedido,);
             //
             mRecyclerView.setAdapter(Adapter);
 
