@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import main.salonero1.Adapters.CustomLinearLayoutManager;
 import main.salonero1.Adapters.adaptermenuitem;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
@@ -80,8 +81,11 @@ String texto;
         //   mLayoutManager = new LinearLayoutManager(rootView.getContext());
         // mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mLayoutManager = new GridLayoutManager(rootView.getContext(), 1);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(rootView.getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+      //  mLayoutManager = new GridLayoutManager(rootView.getContext(), 1);
+       // mRecyclerView.setLayoutManager(mLayoutManager);
 
         Adapter = new adaptermenuitem(menucategoria,getActivity(),menuitems1);
         //

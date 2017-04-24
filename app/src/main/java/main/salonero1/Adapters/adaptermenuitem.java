@@ -14,6 +14,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -36,6 +38,7 @@ import main.salonero1.ExpandableLayout;
 import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
+import main.salonero1.clases.subnombres;
 import main.salonero1.webservice.VolleySingleton;
 
 
@@ -49,9 +52,9 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     private Bitmap imagenitem;
     private ImageLoader imageLoader;
     VolleySingleton volley;
+    RecyclerView.LayoutManager layoutManager;
 
-
-
+    adaptersubnombre adapter;
 
     public Bitmap blurBitmap(Bitmap bitmap, Context context){
 
@@ -128,13 +131,29 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         final menuitem menuitem = menuitems.get(i);
         viewHolder.updateItem(i);
 
+//coasas del segundo recycler
+        List<subnombres> hola= new ArrayList<subnombres>();
+        subnombres probando= new subnombres(1,"hola");
+        hola.add(probando);
+        hola.add(probando);
+        hola.add(probando);
+        hola.add(probando);
+        hola.add(probando);
 
 
-        viewHolder.titulodescripcion.setText(menuitem.getNombremenuitem());
+
+            viewHolder.titulodescripcion.setText(menuitem.getNombremenuitem());
         viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
 
-     //  viewHolder.cantidad.setText("Mas informacion");
+        //coasas del segundo recycler
+        RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(context);
+        viewHolder.recyclerViewbnombres.setLayoutManager(layoutManager);
+
+        adapter = new adaptersubnombre(hola);
+        viewHolder.recyclerViewbnombres.setAdapter(adapter);
+
+        //  viewHolder.cantidad.setText("Mas informacion");
 //        imageLoader = volley.getImageLoader();
         if(menuitem.getCantidad()==0){
 
@@ -275,6 +294,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
 
 
+
         public TextView nombremenuitem12;
         public TextView cantidad;
         public TextView precio;
@@ -285,6 +305,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         private ExpandableLayout expandableLayout;
         private LinearLayout expandable;
         public TextView titulodescripcion;
+        RecyclerView recyclerViewbnombres;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -299,6 +320,17 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             container= (FrameLayout) itemView.findViewById(R.id.item_menu_container);
             expandable= (LinearLayout) itemView.findViewById(R.id.expandablelayout);
             titulodescripcion= (TextView) itemView.findViewById(R.id.titulodescripcion);
+            recyclerViewbnombres = (RecyclerView) itemView.findViewById(R.id.recyclerview_subnombre);
+
+
+
+            //seteo del segundo recyclerview
+
+
+            //RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(itemView.getContext());
+
+         //  subnombres.setHasFixedSize(false);
+           // subnombres.setLayoutManager(layoutManager);
 
         }
 
