@@ -96,7 +96,7 @@ boolean refrescar=false;
     FragmentCargando fragmentcargando;
 
     TextView sumadesgloce;
-
+    //dfd
     private void showdialogmesa() {
         FragmentManager fm = getFragmentManager();
         Dialognummesa dialognummesa = new Dialognummesa();
