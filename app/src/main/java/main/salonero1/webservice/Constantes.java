@@ -20,18 +20,18 @@ public class Constantes {
     /**
      * Dirección IP de genymotion o AVD
      */
-    private static final String IP = "52.38.158.11";
+    private static final String IP = "we.agroingenieriasatelital.com";
     /**
      * URLs del Web Service
 
      */
-    public static final String registrarloguear = " http://52.38.158.11/i_wishdata/register_user.php";
+    public static final String registrarloguear = " http://we.agroingenieriasatelital.com/register_user.php";
 
    // public static final String registrarloguear = "http://" + IP + PUERTO_HOST + "/i_wishdata/RegisterDevice.php";
-    public static final String GETmenu = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_menu.php";
-    public static final String GETmenu2 = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_menu2.php";
+    public static final String GETmenu = "http://" + IP + PUERTO_HOST + "/obtener_menu.php";
+    public static final String GETmenu2 = "http://" + IP + PUERTO_HOST + "/obtener_menu2.php";
     public static final String GETitems = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_";
-    public static final String GETrestaurante = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_restaurante.php";
+    public static final String GETrestaurante = "http://" + IP + PUERTO_HOST + "/obtener_restaurante.php";
     public static final String GETcategorias= "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_categorias.php";
     public static final String GETplatosfuertes = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_tiendas.php";
     public static final String GET = "http://" + IP + PUERTO_HOST + "/i_wishdata/obtener_metas.php";

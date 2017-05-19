@@ -519,8 +519,8 @@ else{return false;
 
      //   "?idMeta="
 
-        String URL=Constantes.GETmenu2 +"?restaurante="+Restnombre;
-
+      //  String URL=Constantes.GETmenu2 +"?restaurante="+Restnombre;
+        String URL=Constantes.GETmenu;
 
         VolleySingleton.getInstance(this).
                 addToRequestQueue(

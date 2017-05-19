@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
        loginButton = (LoginButton)findViewById(R.id.facebooklogin);
-
+       loginButton.setReadPermissions("email");
 
 
 
