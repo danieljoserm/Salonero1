@@ -19,6 +19,8 @@ import main.salonero1.clases.menuitem;
 /**
  * Created by User on 12/7/2016.
  */
+
+//sdfd
 public class adaptercuenta extends RecyclerView.Adapter<adaptercuenta.ViewHolder> {
 
 
