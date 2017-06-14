@@ -49,10 +49,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -115,6 +118,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     String email;
     String contrasena;
 
+    String Nombreusuariofb;
+
+   String  Emailfb;
+
+
+
     //Permiso de acceder al numero telefonico
 
 
@@ -163,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -249,11 +258,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 email=mEmailView.getText().toString();
                contrasena=mPasswordView.getText().toString();
 
-                TelephonyManager tMgr =(TelephonyManager)getApplicationContext().getSystemService(getApplicationContext().TELEPHONY_SERVICE);
-                mPhoneNumber = tMgr.getLine1Number().toString();
 
-
-               int numerocel= (int)(Math.random()*(99999999-10000000+1)+10000000);
 
 
 
@@ -261,7 +266,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                map.put("email", email);
                 map.put("token",token );
-               map.put("numerocel", mPhoneNumber);
+
                 map.put("contrasena", contrasena);
 
 
@@ -301,14 +306,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+
+
        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                Toast.makeText(getApplicationContext(), "Name " + loginResult.getAccessToken().getUserId(), Toast.LENGTH_LONG).show();
-
-
-
+                            Toast.makeText(getApplicationContext(), "Name " + loginResult.getAccessToken().getUserId(), Toast.LENGTH_LONG).show();
+                new fblogin().execute(loginResult.getAccessToken());
 
             }
 
@@ -329,6 +334,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     }// aqui termina on create
+
+
 
 
 
@@ -614,7 +621,85 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-//permiso de numero de telefono
+    public void Registrarfacebook (JSONObject jobject) {
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.registrarloguear,
+                        jobject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                procesarRespuestafb(response);
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+
+                            }
+                        }
+
+                )
+
+
+        );
+
+    }
+
+
+    private void procesarRespuestafb (JSONObject response) {
+
+        try {
+            // Obtener estado
+
+            String estado = response.getString("ingresar");
+            // Obtener mensaje
+            String mensaje = response.getString("message");
+
+
+            if(estado.equals("correcto")){
+
+
+                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
+                startActivity(intent);
+                // SaveSharedPreference.setUserName(this,email);
+
+
+            }
+
+            else if(estado.equals("registrar")){
+                Toast.makeText(LoginActivity.this,"Usuario registrado",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
+                startActivity(intent);
+                //  SaveSharedPreference.setUserName(this,email);
+
+
+            }
+            else{
+
+                Toast.makeText(LoginActivity.this,"contraseña incorrecta",Toast.LENGTH_LONG).show();
+
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
+    //permiso de numero de telefono
 private boolean isReadStorageAllowed() {
     //Getting the permission status
     int result = ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE);
@@ -639,6 +724,78 @@ private boolean isReadStorageAllowed() {
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},READ_PHONE_STATE_CODE);
     }
+
+
+
+    class fblogin extends AsyncTask<AccessToken, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        protected String doInBackground(AccessToken... params) {
+            GraphRequest request = GraphRequest.newMeRequest(params[0],
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object,
+                                                GraphResponse response) {
+
+                            Log.v("LoginActivity", response.toString());
+
+                            try {
+
+                               Nombreusuariofb = object.getString("first_name");
+
+                                Emailfb = object.getString("email");
+
+
+                            } catch (JSONException e) {
+                                // TODO Auto-generated catch
+                                // block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields",
+                    "id,first_name,email");
+            request.setParameters(parameters);
+            request.executeAndWait();
+
+            return null;
+        }
+
+
+        protected void onPostExecute(String file_url) {
+
+
+
+            HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+            map.put("email", Emailfb);
+            map.put("Nombre", Nombreusuariofb);
+
+
+            JSONObject jobject = new JSONObject(map);
+
+
+                Registrarfacebook(jobject);
+
+
+
+
+
+        }
+
+
+    }
+
+
+
+
+
 
 
 
