@@ -115,12 +115,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private CallbackManager callbackManager;
     String  mPhoneNumber;
 
-    String email;
-    String contrasena;
+  String email;
+  String contrasena;
 
-    String Nombreusuariofb;
+  String Nombreusuariofb;
 
-   String  Emailfb;
+  String  Emailfb;
 
 
 
@@ -264,9 +264,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 HashMap<String, String> map = new HashMap<>();// Mapeo previo
 
-               map.put("email", email);
+                map.put("email", email);
                 map.put("token",token );
-
                 map.put("contrasena", contrasena);
 
 
@@ -653,6 +652,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+    //hay que cambiar este procesar respuesta
+
     private void procesarRespuestafb (JSONObject response) {
 
         try {
@@ -662,34 +663,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Obtener mensaje
             String mensaje = response.getString("message");
 
-
-            if(estado.equals("correcto")){
-
-
-                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
-                startActivity(intent);
-                // SaveSharedPreference.setUserName(this,email);
-
-
-            }
-
-            else if(estado.equals("registrar")){
-                Toast.makeText(LoginActivity.this,"Usuario registrado",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(LoginActivity.this, Restaurante_Activity.class);
-                startActivity(intent);
-                //  SaveSharedPreference.setUserName(this,email);
-
-
-            }
-            else{
-
-                Toast.makeText(LoginActivity.this,"contraseña incorrecta",Toast.LENGTH_LONG).show();
-
-            }
-
-
-
-        } catch (JSONException e) {
+          } catch (JSONException e) {
             e.printStackTrace();
         }
 

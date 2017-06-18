@@ -2,6 +2,8 @@ package main.salonero1;
 
 
 import android.app.FragmentManager;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
@@ -45,6 +47,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import main.salonero1.Adapters.adaptercuenta;
 import main.salonero1.Tabs.Dialognummesa;
@@ -90,6 +93,10 @@ List<menuitem> pedido;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter Adapter;
 boolean refrescar=false;
+
+    private Locale locale;
+    private Configuration config = new Configuration();
+
 
 
     FragmentTransaction ft;
@@ -497,7 +504,25 @@ else{return false;
             SaveSharedPreference.clearUserName(this);
 
             Intent intent = new Intent(this,LoginActivity.class);
-              startActivity(intent);
+            startActivity(intent);
+        }
+
+
+        SharedPreferences prefs =
+                getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = prefs.edit();
+
+
+        editor.putString("email", "modificado@email.com");
+        editor.putString("nombre", "Prueba");
+        editor.commit();
+        else if (id == R.id.language) {
+
+            showDialog();
+
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -678,6 +703,41 @@ else{return false;
             Log.d("", e.getMessage());
         }
 
+    }
+
+
+
+    private void showDialog(){
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle(getResources().getString(R.string.language_nav));
+        //obtiene los idiomas del array de string.xml
+        String[] types = getResources().getStringArray(R.array.languages);
+        b.setItems(types, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                switch(which){
+                    case 0:
+                        locale = new Locale("en");
+                        config.locale =locale;
+                        break;
+                    case 1:
+                        locale = new Locale("es");
+                        config.locale =locale;
+                        break;
+
+                }
+                getResources().updateConfiguration(config, null);
+                Intent refresh = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(refresh);
+                finish();
+            }
+
+        });
+
+        b.show();
     }
 
 
