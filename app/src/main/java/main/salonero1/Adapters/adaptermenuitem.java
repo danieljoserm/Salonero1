@@ -14,6 +14,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -93,12 +94,23 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 //coasas del segundo recycler
         List<subnombres> hola= new ArrayList<subnombres>();
-        subnombres probando= new subnombres(1,"hola");
+        subnombres probando= new subnombres(1,"res");
+
         hola.add(probando);
-        hola.add(probando);
-        hola.add(probando);
-        hola.add(probando);
-        hola.add(probando);
+        subnombres probando1= new subnombres(2,"pollo");
+        hola.add(probando1);
+        subnombres probando2= new subnombres(3,"pescado");
+        hola.add(probando2);
+        subnombres probando3= new subnombres(4,"cerdo");
+        hola.add(probando3);
+        subnombres probando4= new subnombres(5,"camaron");
+        hola.add(probando4);
+        subnombres probando5= new subnombres(6,"chimichurri");
+        hola.add(probando5);
+        subnombres probando6= new subnombres(7,"frijoles");
+        hola.add(probando6);
+        subnombres probando7= new subnombres(8,"queso");
+        hola.add(probando7);
 
 
 
@@ -108,10 +120,29 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
         //coasas del segundo recycler
         RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(context);
-        viewHolder.recyclerViewbnombres.setLayoutManager(layoutManager);
+        viewHolder.recyclerViewbnombres.setLayoutManager(new GridLayoutManager(context,3));
 
         adapter = new adaptersubnombre(hola);
-        viewHolder.recyclerViewbnombres.setAdapter(adapter);
+
+        List<SectionedGridRecyclerViewAdapter.Section> sections =
+                new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
+
+        //Sections
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Carne"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(5,"acompanamientos"));
+       // sections.add(new SectionedGridRecyclerViewAdapter.Section(12,"Section 3"));
+      //  sections.add(new SectionedGridRecyclerViewAdapter.Section(14,"Section 4"));
+     //   sections.add(new SectionedGridRecyclerViewAdapter.Section(20,"Section 5"));
+
+
+        SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
+        SectionedGridRecyclerViewAdapter mSectionedAdapter = new
+        SectionedGridRecyclerViewAdapter(context,R.layout.section,R.id.section_text,viewHolder.recyclerViewbnombres,adapter);
+        mSectionedAdapter.setSections(sections.toArray(dummy));
+
+        viewHolder.recyclerViewbnombres.setAdapter(mSectionedAdapter);
+
+        //viewHolder.recyclerViewbnombres.setAdapter(adapter);
 
         //  viewHolder.cantidad.setText("Mas informacion");
 //        imageLoader = volley.getImageLoader();

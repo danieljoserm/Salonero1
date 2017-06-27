@@ -36,13 +36,36 @@
 
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/textviewsubnombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:weightSum="1"
+            android:windowBackground="@android:color/transparent"
+            android:windowIsTranslucent="true">
+
+            <CheckBox
+
+                android:textColor="@color/blanco"
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/blanco"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textviewsubnombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
 
     </FrameLayout>
 

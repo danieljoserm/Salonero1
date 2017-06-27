@@ -1,7 +1,9 @@
 package main.salonero1.Adapters;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,4 +86,6 @@ public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.View
 
 
     }
+
+
 }
