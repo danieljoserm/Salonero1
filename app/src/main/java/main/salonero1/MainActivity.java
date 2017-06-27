@@ -508,15 +508,15 @@ else{return false;
         }
 
 
-        SharedPreferences prefs =
-                getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+     //   SharedPreferences prefs =
+       //         getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = prefs.edit();
+       // SharedPreferences.Editor editor = prefs.edit();
 
 
-        editor.putString("email", "modificado@email.com");
-        editor.putString("nombre", "Prueba");
-        editor.commit();
+        //editor.putString("email", "modificado@email.com");
+        //editor.putString("nombre", "Prueba");
+        //editor.commit();
         else if (id == R.id.language) {
 
             showDialog();
