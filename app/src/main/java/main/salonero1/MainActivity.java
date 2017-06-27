@@ -1,6 +1,6 @@
 package main.salonero1;
 
-
+//prueba github
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
