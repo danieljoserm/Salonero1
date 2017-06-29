@@ -1,21 +1,11 @@
 package main.salonero1.Adapters;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +16,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -36,11 +25,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import main.salonero1.ExpandableLayout;
-import main.salonero1.MainActivity;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 import main.salonero1.clases.subnombres;
 import main.salonero1.webservice.VolleySingleton;
+import me.mvdw.recyclerviewmergeadapter.adapter.RecyclerViewMergeAdapter;
 
 
 public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHolder>  {
@@ -54,8 +43,8 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     private ImageLoader imageLoader;
     VolleySingleton volley;
     RecyclerView.LayoutManager layoutManager;
-
-    adaptersubnombre adapter;
+    RecyclerView.Adapter adapter;
+    RecyclerView.Adapter adapter2;
 
 
 
@@ -105,12 +94,15 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         hola.add(probando3);
         subnombres probando4= new subnombres(5,"camaron");
         hola.add(probando4);
-        subnombres probando5= new subnombres(6,"chimichurri");
-        hola.add(probando5);
-        subnombres probando6= new subnombres(7,"frijoles");
-        hola.add(probando6);
-        subnombres probando7= new subnombres(8,"queso");
-        hola.add(probando7);
+
+        List<subnombres> hola2= new ArrayList<subnombres>();
+        subnombres probando5= new subnombres(1,"chimichurri");
+        hola2.add(probando5);
+        subnombres probando6= new subnombres(2,"frijoles");
+        hola2.add(probando6);
+        subnombres probando7= new subnombres(3,"queso");
+        hola2.add(probando7);
+
 
 
 
@@ -118,29 +110,40 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         viewHolder.nombremenuitem12.setText( menuitem.getNombremenuitem());
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
 
-        //coasas del segundo recycler
-        RecyclerView.LayoutManager layoutManager = new CustomLinearLayoutManager(context);
-        viewHolder.recyclerViewbnombres.setLayoutManager(new GridLayoutManager(context,3));
+
+        viewHolder.recyclerViewbnombres.setLayoutManager(new GridLayoutManager(context,2));
 
         adapter = new adaptersubnombre(hola);
 
+        adapter2 = new adaptersubnombre_incluyente(hola2);
+
+
+
+
+        RecyclerViewMergeAdapter mergeAdapter = new RecyclerViewMergeAdapter();
+
+        mergeAdapter.addAdapter(adapter);
+        //mergeAdapter.addAdapter(adapter2);
+
         List<SectionedGridRecyclerViewAdapter.Section> sections =
                 new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
-
         //Sections
         sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Carne"));
-        sections.add(new SectionedGridRecyclerViewAdapter.Section(5,"acompanamientos"));
-       // sections.add(new SectionedGridRecyclerViewAdapter.Section(12,"Section 3"));
-      //  sections.add(new SectionedGridRecyclerViewAdapter.Section(14,"Section 4"));
-     //   sections.add(new SectionedGridRecyclerViewAdapter.Section(20,"Section 5"));
-
-
+       // sections.add(new SectionedGridRecyclerViewAdapter.Section(5,"acompanamientos"));
         SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
         SectionedGridRecyclerViewAdapter mSectionedAdapter = new
-        SectionedGridRecyclerViewAdapter(context,R.layout.section,R.id.section_text,viewHolder.recyclerViewbnombres,adapter);
+                SectionedGridRecyclerViewAdapter(context,R.layout.section,R.id.section_text,viewHolder.recyclerViewbnombres,mergeAdapter);
         mSectionedAdapter.setSections(sections.toArray(dummy));
 
-        viewHolder.recyclerViewbnombres.setAdapter(mSectionedAdapter);
+
+
+
+        viewHolder.recyclerViewbnombres.setAdapter(mergeAdapter);
+
+
+
+
+
 
         //viewHolder.recyclerViewbnombres.setAdapter(adapter);
 

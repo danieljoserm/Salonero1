@@ -52,7 +52,7 @@
             <CheckBox
 
                 android:textColor="@color/blanco"
-                android:id="@+id/checkBox"
+                android:id="@+id/checkBoxsubnombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/blanco"

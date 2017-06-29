@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -29,19 +27,18 @@ import main.salonero1.webservice.VolleySingleton;
  * Created by danie on 4/3/2017.
  */
 
-public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.ViewHolder> {
+public class adaptersubnombre_incluyente extends RecyclerView.Adapter<adaptersubnombre_incluyente.ViewHolder> {
 
     List<subnombres> subnombres;
     //private ItemClickListener clickListener;
-    public  int selectedPosition;
+
     //private int lastPosition = -1;
-    private static CheckBox lastChecked = null;
-    private static int lastCheckedPos = 0;
-
-    public adaptersubnombre(List<subnombres> subnombres) {
 
 
-       this.subnombres = subnombres;
+    public adaptersubnombre_incluyente(List<subnombres> subnombres) {
+
+
+        this.subnombres = subnombres;
 
     }
 
@@ -61,26 +58,8 @@ public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.View
 
         viewHolder.Nombre.setText(subnombre.getTexto());
 
-        viewHolder.checkBox.setOnCheckedChangeListener(null);
-
-        //if true, your check box will be selected, else unselected
-
-        viewHolder.checkBox.setTag(i);
-
-        if(i==selectedPosition)
-        {
-            viewHolder.checkBox.setChecked(true);
-        }
-        else
-        {
-            viewHolder.checkBox.setChecked(false);
-        }
-        viewHolder.checkBox.setOnCheckedChangeListener(new CheckListener(viewHolder.checkBox,i));
 
     }
-
-
-
 
     @Override
     public int getItemCount() {
@@ -89,43 +68,11 @@ public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.View
     }
 
 
-class CheckListener implements CompoundButton.OnCheckedChangeListener {
-
-    private final int position;
-    private CheckBox checkbox;
-
-    public CheckListener(CheckBox checkbox,int position) {
-
-        this.checkbox = checkbox;
-        this.position=position;
-
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView,
-                                 boolean isChecked) {
-
-        if (isChecked) {
-            checkbox.setChecked(true);
-            selectedPosition = position;
-            adaptersubnombre.this.notifyDataSetChanged();
-        } else {
-            checkbox.setChecked(false);
-
-        }
-        buttonView.setChecked(isChecked);
-
-    }
-
-
-}
-
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
 
         public TextView Nombre;
-        public CheckBox checkBox;
+
 
 
         public ViewHolder(View itemView) {
@@ -133,7 +80,7 @@ class CheckListener implements CompoundButton.OnCheckedChangeListener {
 
 
             Nombre = (TextView) itemView.findViewById(R.id.textviewsubnombre);
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxsubnombre);
+
 
         }
 
