@@ -51,6 +51,9 @@ public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.View
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.subnombre_itemrow, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
+
+        selectedPosition=0;
+
         return viewHolder;
     }
 
@@ -108,7 +111,7 @@ class CheckListener implements CompoundButton.OnCheckedChangeListener {
         if (isChecked) {
             checkbox.setChecked(true);
             selectedPosition = position;
-            adaptersubnombre.this.notifyDataSetChanged();
+           adaptersubnombre.this.notifyDataSetChanged();
         } else {
             checkbox.setChecked(false);
 

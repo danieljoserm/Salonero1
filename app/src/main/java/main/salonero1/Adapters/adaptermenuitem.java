@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,23 +14,30 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
+import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection;
 import main.salonero1.ExpandableLayout;
 import main.salonero1.R;
 import main.salonero1.clases.menuitem;
 import main.salonero1.clases.subnombres;
 import main.salonero1.webservice.VolleySingleton;
-import me.mvdw.recyclerviewmergeadapter.adapter.RecyclerViewMergeAdapter;
+
 
 
 public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHolder>  {
@@ -46,7 +54,7 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
     RecyclerView.Adapter adapter;
     RecyclerView.Adapter adapter2;
 
-
+    SectionedRecyclerViewAdapter sectionAdapter;
 
 
 
@@ -66,22 +74,10 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         ViewHolder viewHolder = new ViewHolder(v);
    volley= new VolleySingleton(context);
 
+        sectionAdapter = new SectionedRecyclerViewAdapter();
 
 
 
-        return viewHolder;
-
-    }
-
-
-
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        final menuitem menuitem = menuitems.get(i);
-        viewHolder.updateItem(i);
-
-//coasas del segundo recycler
         List<subnombres> hola= new ArrayList<subnombres>();
         subnombres probando= new subnombres(1,"res");
 
@@ -104,6 +100,47 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         hola2.add(probando7);
 
 
+        GridLayoutManager glm = new GridLayoutManager(context, 2);
+        glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch(sectionAdapter.getSectionItemViewType(position)) {
+                    case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
+                        return 2;
+                    default:
+                        return 1;
+                }
+            }
+        });
+
+        viewHolder.recyclerViewbnombres.setLayoutManager(glm);
+
+
+        sectionAdapter.addSection(new ContactsSection("carne",hola));
+        sectionAdapter.addSection(new ContactsSection1("acompanamientos",hola2));
+
+
+        adapter =  new adaptersubnombre(hola);
+
+        viewHolder.recyclerViewbnombres.setAdapter(sectionAdapter);
+
+
+
+        return viewHolder;
+
+    }
+
+
+
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        final menuitem menuitem = menuitems.get(i);
+        viewHolder.updateItem(i);
+
+//coasas del segundo recycler
+
+
 
 
         viewHolder.titulodescripcion.setText(menuitem.getNombremenuitem());
@@ -111,35 +148,38 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
        viewHolder.precio.setText("Precio:" + Integer.toString(menuitem.getPrecio()));
 
 
-        viewHolder.recyclerViewbnombres.setLayoutManager(new GridLayoutManager(context,2));
 
-        adapter = new adaptersubnombre(hola);
-
-        adapter2 = new adaptersubnombre_incluyente(hola2);
+       // viewHolder.recyclerViewbnombres.setLayoutManager(new GridLayoutManager(context,2));
 
 
 
 
-        RecyclerViewMergeAdapter mergeAdapter = new RecyclerViewMergeAdapter();
 
-        mergeAdapter.addAdapter(adapter);
-        //mergeAdapter.addAdapter(adapter2);
 
+
+
+
+
+
+
+
+
+
+/*
         List<SectionedGridRecyclerViewAdapter.Section> sections =
                 new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
         //Sections
         sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Carne"));
-       // sections.add(new SectionedGridRecyclerViewAdapter.Section(5,"acompanamientos"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(5,"acompanamientos"));
         SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
         SectionedGridRecyclerViewAdapter mSectionedAdapter = new
-                SectionedGridRecyclerViewAdapter(context,R.layout.section,R.id.section_text,viewHolder.recyclerViewbnombres,mergeAdapter);
+                SectionedGridRecyclerViewAdapter(context,R.layout.section,R.id.section_text,viewHolder.recyclerViewbnombres,adapter);
         mSectionedAdapter.setSections(sections.toArray(dummy));
 
 
 
 
-        viewHolder.recyclerViewbnombres.setAdapter(mergeAdapter);
-
+        viewHolder.recyclerViewbnombres.setAdapter(mSectionedAdapter);*/
 
 
 
@@ -383,4 +423,223 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
             lastPosition = position;
         }
     }
+
+
+
+    class ContactsSection extends StatelessSection {
+
+        String title;
+        List<subnombres> list;
+
+        public  int selectedPosition=-1;
+        //private int lastPosition = -1;
+        private  CheckBox lastChecked = null;
+        private  int lastCheckedPos = 0;
+
+        public ContactsSection(String title, List<subnombres> list) {
+            super(R.layout.section, R.layout.subnombre_itemrow);
+
+            this.title = title;
+            this.list = list;
+        }
+
+        @Override
+        public int getContentItemsTotal() {
+            return list.size();
+        }
+
+        @Override
+        public RecyclerView.ViewHolder getItemViewHolder(View view) {
+            return new ItemViewHolder(view);
+        }
+
+        @Override
+        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+            final ItemViewHolder itemHolder = (ItemViewHolder) holder;
+
+            subnombres name = list.get(position);
+             itemHolder.Nombre.setText(name.getTexto());
+
+
+          //  itemHolder.checkBox.setChecked(selectedPosition == position);
+
+
+
+            itemHolder.checkBox.setOnCheckedChangeListener(null);
+
+            //if true, your check box will be selected, else unselected
+
+            itemHolder.checkBox.setTag(position);
+
+            if(position==selectedPosition)
+            {
+                itemHolder.checkBox.setChecked(true);
+            }
+            else
+            {
+                itemHolder.checkBox.setChecked(false);
+            }
+            itemHolder.checkBox.setOnCheckedChangeListener(new ContactsSection.CheckListener(itemHolder.checkBox,position));
+
+        }
+
+
+        class CheckListener implements CompoundButton.OnCheckedChangeListener {
+
+            private final int position;
+            private CheckBox checkbox;
+
+            public CheckListener(CheckBox checkbox,int position) {
+
+                this.checkbox = checkbox;
+                this.position=position;
+
+            }
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if (isChecked) {
+                    checkbox.setChecked(true);
+                    selectedPosition = position;
+                    sectionAdapter.notifyDataSetChanged();
+                } else {
+                    checkbox.setChecked(false);
+
+                }
+                buttonView.setChecked(isChecked);
+
+            }
+
+
+        }
+
+
+
+
+        @Override
+        public RecyclerView.ViewHolder getHeaderViewHolder(View view) {
+            return new HeaderViewHolder(view);
+        }
+
+        @Override
+        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
+            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+
+
+
+            headerHolder.tvTitle.setText(title);
+        }
+    }
+
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView tvTitle;
+
+        public HeaderViewHolder(View view) {
+            super(view);
+
+            tvTitle = (TextView) view.findViewById(R.id.section_text);
+        }
+    }
+
+    class ItemViewHolder extends RecyclerView.ViewHolder {
+
+
+        private final View rootView;
+        private final TextView Nombre;
+        private final CheckBox checkBox;
+
+
+        public ItemViewHolder(View view) {
+            super(view);
+
+
+            rootView = view;
+
+            Nombre = (TextView) itemView.findViewById(R.id.textviewsubnombre);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxsubnombre);
+        }
+    }
+
+
+
+    class ContactsSection1 extends StatelessSection {
+
+        String title;
+        List<subnombres> list;
+
+        public ContactsSection1(String title, List<subnombres> list) {
+            super(R.layout.section, R.layout.subnombre_itemrow);
+
+            this.title = title;
+            this.list = list;
+        }
+
+        @Override
+        public int getContentItemsTotal() {
+            return list.size();
+        }
+
+        @Override
+        public RecyclerView.ViewHolder getItemViewHolder(View view) {
+            return new ItemViewHolder(view);
+        }
+
+        @Override
+        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
+            final ItemViewHolder itemHolder = (ItemViewHolder) holder;
+
+            subnombres name = list.get(position);
+            itemHolder.Nombre.setText(name.getTexto());
+
+        }
+
+        @Override
+        public RecyclerView.ViewHolder getHeaderViewHolder(View view) {
+            return new HeaderViewHolder(view);
+        }
+
+        @Override
+        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
+            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+
+
+
+            headerHolder.tvTitle.setText(title);
+        }
+    }
+
+    class HeaderViewHolder1 extends RecyclerView.ViewHolder {
+
+        private final TextView tvTitle;
+
+        public HeaderViewHolder1(View view) {
+            super(view);
+
+            tvTitle = (TextView) view.findViewById(R.id.section_text);
+        }
+    }
+
+    class ItemViewHolder1 extends RecyclerView.ViewHolder {
+
+
+        private final View rootView;
+        private final TextView Nombre;
+        private final CheckBox checkBox;
+
+
+        public ItemViewHolder1(View view) {
+            super(view);
+
+
+            rootView = view;
+
+            Nombre = (TextView) itemView.findViewById(R.id.textviewsubnombre);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxsubnombre);
+        }
+    }
 }
+
+
