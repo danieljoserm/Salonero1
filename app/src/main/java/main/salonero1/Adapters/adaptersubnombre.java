@@ -37,6 +37,8 @@ public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.View
     //private int lastPosition = -1;
     private static CheckBox lastChecked = null;
     private static int lastCheckedPos = 0;
+    private static int lastCheckedPosition=0;
+
 
     public adaptersubnombre(List<subnombres> subnombres) {
 
@@ -92,36 +94,40 @@ public class adaptersubnombre extends RecyclerView.Adapter<adaptersubnombre.View
     }
 
 
-class CheckListener implements CompoundButton.OnCheckedChangeListener {
+    class CheckListener implements CompoundButton.OnCheckedChangeListener {
 
-    private final int position;
-    private CheckBox checkbox;
+        private final int position;
+        private CheckBox checkbox;
 
-    public CheckListener(CheckBox checkbox,int position) {
+        public CheckListener(CheckBox checkbox,int position) {
 
-        this.checkbox = checkbox;
-        this.position=position;
-
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView,
-                                 boolean isChecked) {
-
-        if (isChecked) {
-            checkbox.setChecked(true);
-            selectedPosition = position;
-           adaptersubnombre.this.notifyDataSetChanged();
-        } else {
-            checkbox.setChecked(false);
+            this.checkbox = checkbox;
+            this.position=position;
 
         }
-        buttonView.setChecked(isChecked);
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,
+                                     boolean isChecked) {
+
+            if (isChecked) {
+                checkbox.setChecked(true);
+                //notifyItemChanged(selectedPosition);
+                selectedPosition = position;
+              // notifyDataSetChanged();
+                //notifyItemChanged(position);
+                notifyItemRangeChanged(0, (subnombres.size()+1)*2);
+
+            } else {
+                checkbox.setChecked(false);
+
+            }
+            buttonView.setChecked(isChecked);
+
+        }
+
 
     }
-
-
-}
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -138,7 +144,16 @@ class CheckListener implements CompoundButton.OnCheckedChangeListener {
             Nombre = (TextView) itemView.findViewById(R.id.textviewsubnombre);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxsubnombre);
 
+
+
+
+
+
         }
+
+
+
+
 
 
     }

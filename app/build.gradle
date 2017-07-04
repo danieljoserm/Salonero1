@@ -38,6 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.SilenceDut:ExpandableLayout:1.2.0'
     compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.5'
+    compile 'me.mvdw.recyclerviewmergeadapter:recyclerviewmergeadapter:2.0.0'
 }
 
 
