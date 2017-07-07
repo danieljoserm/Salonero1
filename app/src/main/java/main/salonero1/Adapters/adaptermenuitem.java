@@ -100,6 +100,14 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         subnombres probando7= new subnombres(3,"queso");
         hola2.add(probando7);
 
+        List<subnombres> hola3= new ArrayList<subnombres>();
+        subnombres probando8= new subnombres(1,"rusa");
+        hola3.add(probando8);
+        subnombres probando9= new subnombres(2,"cesar");
+        hola3.add(probando9);
+        subnombres probando10= new subnombres(3,"fría");
+        hola3.add(probando10);
+
         adapter= new adaptersubnombre(hola);
         GridLayoutManager glm = new GridLayoutManager(context, 2);
         glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -115,11 +123,10 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
         });
 
         viewHolder.recyclerViewbnombres.setLayoutManager(glm);
-        sectionAdapter.addSection(new ContactsSection("carne",hola));
-        //sectionAdapter.addSection(new ContactsSection1("acompanamientos",hola2));
+
         RecyclerView.Adapter subAdapter1 = new adaptersubnombre(hola);
         RecyclerView.Adapter subAdapter2 = new adaptersubnombre_incluyente(hola2);
-
+        RecyclerView.Adapter subAdapter3 = new adaptersubnombre(hola3);
 
 
 
@@ -127,11 +134,13 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
         mergeAdapter.addAdapter(subAdapter1);
         mergeAdapter.addAdapter(subAdapter2);
+        mergeAdapter.addAdapter(subAdapter3);
 
         List<SectionedGridRecyclerViewAdapter.Section> sections =
                 new ArrayList<SectionedGridRecyclerViewAdapter.Section>();
         sections.add(new SectionedGridRecyclerViewAdapter.Section(0,"Carne"));
         sections.add(new SectionedGridRecyclerViewAdapter.Section(5,"acompanamientos"));
+        sections.add(new SectionedGridRecyclerViewAdapter.Section(8,"ensalada"));
 
         SectionedGridRecyclerViewAdapter.Section[] dummy = new SectionedGridRecyclerViewAdapter.Section[sections.size()];
         SectionedGridRecyclerViewAdapter mSectionedAdapter = new
@@ -444,202 +453,10 @@ public class adaptermenuitem extends RecyclerView.Adapter<adaptermenuitem.ViewHo
 
 
 
-    class ContactsSection extends StatelessSection {
 
-        String title;
-        List<subnombres> list;
-         int lastCheckedPosition=0;
 
 
-        public ContactsSection(String title, List<subnombres> list) {
-            super(R.layout.section, R.layout.subnombre_itemrow);
 
-            this.title = title;
-            this.list = list;
-        }
-
-        @Override
-        public int getContentItemsTotal() {
-            return list.size();
-        }
-
-        @Override
-        public RecyclerView.ViewHolder getItemViewHolder(View view) {
-            return new ItemViewHolder(view);
-        }
-
-        @Override
-        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
-            final ItemViewHolder itemHolder = (ItemViewHolder) holder;
-
-            subnombres name = list.get(position);
-             itemHolder.Nombre.setText(name.getTexto());
-
-
-          //  itemHolder.checkBox.setChecked(selectedPosition == position);
-            class ItemViewHolder extends RecyclerView.ViewHolder {
-
-
-                private final View rootView;
-                private final TextView Nombre;
-                private final CheckBox checkBox;
-
-
-                public ItemViewHolder(View view) {
-                    super(view);
-
-
-                    rootView = view;
-
-                    Nombre = (TextView) itemView.findViewById(R.id.textviewsubnombre);
-                    checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxsubnombre);
-                    checkBox.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            lastCheckedPosition = getAdapterPosition();
-                            sectionAdapter.notifyDataSetChanged();
-                            //notifyDataSetChanged();
-
-                            //notifyItemRangeChanged(0, list.size());
-
-                        }
-                    });
-
-                }
-            }
-
-
-
-
-        }
-
-
-
-
-
-
-
-        @Override
-        public RecyclerView.ViewHolder getHeaderViewHolder(View view) {
-            return new HeaderViewHolder(view);
-        }
-
-        @Override
-        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
-            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-
-
-
-            headerHolder.tvTitle.setText(title);
-        }
-
-
-
-    }
-
-
-
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-        private final TextView tvTitle;
-
-        public HeaderViewHolder(View view) {
-            super(view);
-
-            tvTitle = (TextView) view.findViewById(R.id.section_text);
-        }
-    }
-
-
-
-
-
-    class ContactsSection1 extends StatelessSection {
-
-
-        String title;
-        List<subnombres> list;
-
-        public ContactsSection1(String title, List<subnombres> list) {
-            super(R.layout.section, R.layout.subnombre_itemrow);
-
-            this.title = title;
-            this.list = list;
-        }
-
-        @Override
-        public int getContentItemsTotal() {
-            return list.size();
-        }
-
-        @Override
-        public RecyclerView.ViewHolder getItemViewHolder(View view) {
-            return new ItemViewHolder1(view);
-        }
-
-        @Override
-        public void onBindItemViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            final ItemViewHolder1 itemHolder = (ItemViewHolder1) holder;
-
-            subnombres name = list.get(position);
-            itemHolder.Nombre.setText(name.getTexto());
-
-
-
-
-
-
-
-
-        }
-
-        @Override
-        public RecyclerView.ViewHolder getHeaderViewHolder(View view) {
-            return new HeaderViewHolder1(view);
-        }
-
-        @Override
-        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
-            HeaderViewHolder1 headerHolder = (HeaderViewHolder1) holder;
-
-
-
-            headerHolder.tvTitle.setText(title);
-        }
-    }
-
-    class HeaderViewHolder1 extends RecyclerView.ViewHolder {
-
-        private final TextView tvTitle;
-
-        public HeaderViewHolder1(View view) {
-            super(view);
-
-            tvTitle = (TextView) view.findViewById(R.id.section_text);
-        }
-    }
-
-    class ItemViewHolder1 extends RecyclerView.ViewHolder {
-
-
-        private final View rootView;
-        private final TextView Nombre;
-        private final CheckBox checkBox;
-
-
-        public ItemViewHolder1(View view) {
-            super(view);
-
-
-            rootView = view;
-
-            Nombre = (TextView) itemView.findViewById(R.id.textviewsubnombre);
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBoxsubnombre);
-        }
-
-
-
-    }
 }
 
 

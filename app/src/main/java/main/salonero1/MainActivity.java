@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import  android.support.v4.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -521,8 +522,6 @@ else{return false;
 
             showDialog();
 
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -717,15 +716,27 @@ else{return false;
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                SharedPreferences prefs =   getSharedPreferences("mis preferencias", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+
+
+
+
                 dialog.dismiss();
                 switch(which){
                     case 0:
                         locale = new Locale("en");
                         config.locale =locale;
+                        editor.putString("language","en");
+                        editor.apply();
+                        editor.commit();
                         break;
                     case 1:
                         locale = new Locale("es");
                         config.locale =locale;
+                        editor.putString("language","es");
+                        editor.apply();
+                        editor.commit();
                         break;
 
                 }

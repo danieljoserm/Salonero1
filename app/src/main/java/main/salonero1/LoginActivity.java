@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -65,6 +66,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 import main.salonero1.clases.Restau;
@@ -121,7 +123,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
   String Nombreusuariofb;
 
   String  Emailfb;
-
+   private Locale locale;
+    private Configuration config = new Configuration();
 
 
     //Permiso de acceder al numero telefonico
@@ -168,6 +171,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return outBitmap;
 
     }
+
+
+
 
 
     @Override
@@ -334,7 +340,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }// aqui termina on create
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        getResources().updateConfiguration(config, null);
+        Intent refresh = new Intent(this, LoginActivity.class);
+        startActivity(refresh);
+        finish();
 
+
+        super.onConfigurationChanged(newConfig);
+    }
 
 
 
