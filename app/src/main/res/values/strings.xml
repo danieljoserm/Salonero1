@@ -19,7 +19,11 @@
     <string name="detalle"><u><b><i>Detallar </i></b></u></string>
 
     <string name="forgetpass"><u>olvidaste la contrasena</u>.</string>
+    <string name="Registrarse"><u>Registrarse</u>.</string>
 
+    <string name="aceptarregistro"><u>registrar</u>.</string>
+
+    <string name="negarregistro"><u>cancelar</u>.</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">1473885225968586</string>

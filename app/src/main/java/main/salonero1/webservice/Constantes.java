@@ -23,7 +23,7 @@ public class Constantes {
     private static final String IP = "we.agroingenieriasatelital.com";
     /**
      * URLs del Web Service
-
+//http://we.agroingenieriasatelital.com:80/obtener_restaurante.php
      */
     public static final String registrarloguear = " http://we.agroingenieriasatelital.com/register_user.php";
 

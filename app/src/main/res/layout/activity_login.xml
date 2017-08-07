@@ -94,10 +94,22 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
+            <Button
+                android:textSize="12dp"
+                android:textColor="@drawable/button_login_color"
+                android:background="@android:color/transparent"
+                android:id="@+id/registerbutton"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/Registrarse"
+                />
+
 
             <Button
                 android:textSize="12dp"
-                android:textColor="@color/blanco"
+                android:textColor="@drawable/button_login_color"
                 android:background="@android:color/transparent"
                 android:id="@+id/forgotpass"
                 style="?android:textAppearanceSmall"

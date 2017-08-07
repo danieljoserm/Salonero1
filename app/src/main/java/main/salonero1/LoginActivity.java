@@ -3,7 +3,12 @@ package main.salonero1;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -35,6 +40,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -74,6 +80,7 @@ import main.salonero1.clases.Restau;
 
 import main.salonero1.pushnotifications.SharedPrefManager;
 import main.salonero1.webservice.Constantes;
+import main.salonero1.webservice.DialogRegistrarse;
 import main.salonero1.webservice.VolleySingleton;
 import main.salonero1.SaveSharedPreference;
 import android.Manifest;
@@ -113,15 +120,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private static final String TAG = LoginActivity.class.getSimpleName();
 
+    private EditText Nombreusuarioregistro;
+    private Button RegisterButton;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     String  mPhoneNumber;
+
+    private DialogRegistrarse dialogregistrarse;
 
   String email;
   String contrasena;
 
   String Nombreusuariofb;
-
+    final Context context = this;
   String  Emailfb;
    private Locale locale;
     private Configuration config = new Configuration();
@@ -193,6 +204,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
        loginButton = (LoginButton)findViewById(R.id.facebooklogin);
        loginButton.setReadPermissions("email");
 
+        RegisterButton =(Button)findViewById(R.id.registerbutton);
+
+
 
 
 
@@ -231,7 +245,74 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         }
 
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+                LayoutInflater li = LayoutInflater.from(context);
+                View dialogView = li.inflate(R.layout.dialog_registrarse, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+                // set title
+                alertDialogBuilder.setTitle("Formulario de Registro");
+                              // set custom_dialog.xml to alertdialog builder
+                alertDialogBuilder.setView(dialogView);
+
+                //Declaring registration info
+                final EditText EditTextDialogNombreUsuario = (EditText) dialogView.findViewById(R.id.edittextNombreusuarioregistro);
+                final EditText EditTextDialogContrasena = (EditText) dialogView.findViewById(R.id.edittextdialogcontrasena);
+                final EditText EditTextDialogConfirmarContrasena = (EditText) dialogView.findViewById(R.id.edittextdialogconfirmarcontrasena);
+                final EditText EditTextDialogcorreoelectronico = (EditText) dialogView.findViewById(R.id.edittextcorreoelectronico);
+
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.aceptarregistro,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+
+                                     String NombreUsuario = EditTextDialogNombreUsuario.getText().toString();
+                                     String contrasena = EditTextDialogContrasena.getText().toString();
+                                     String correoelectronico = EditTextDialogcorreoelectronico.getText().toString();
+
+                                        HashMap<String, String> DatosRegistro = new HashMap<>();
+
+                                        DatosRegistro.put("usuario", NombreUsuario);
+                                        DatosRegistro.put("clave", contrasena );
+                                        DatosRegistro.put("correo", contrasena);
+
+                                        JSONObject JsonRegistro = new JSONObject(DatosRegistro);
+
+                                        Registrar(JsonRegistro);
+
+
+
+
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.negarregistro,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+
+
+
+
+            //dialogregistrarse= new DialogRegistrarse();
+            //dialogregistrarse.show(getFragmentManager(),"missiles");
+
+
+            }
+        });
 
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -558,6 +639,38 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+    public void Registrar (JSONObject jobject){
+
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.registrarloguear,
+                        jobject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                procesarRespuestaRegistro(response);
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+
+                            }
+                        }
+
+                )
+
+
+        );
+
+    }
+
+
+
 //Comunicacion con el server
     public void registrarologuear (JSONObject jobject) {
 
@@ -630,6 +743,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+    }
+
+
+
+    private void procesarRespuestaRegistro(JSONObject response){
+
+
+        try {
+            String Respuesta = response.getString("Respuesta");
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
 
     }
 
@@ -845,5 +975,6 @@ private boolean isReadStorageAllowed() {
             showProgress(false);
         }
     }
+
 }
 
